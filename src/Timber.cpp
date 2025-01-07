@@ -10,5 +10,11 @@ int main()
     VideoMode videoMode(Vector2u(1920, 1080));
     RenderWindow window(videoMode, "Timber", State::Fullscreen);
 
+    while (window.isOpen()) {
+        if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
+            window.close();
+        }
+    }
+
     return 0;
 }
