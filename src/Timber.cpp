@@ -104,6 +104,54 @@ int main()
             }
         }
 
+        if (!cloud1Active) {
+            srand((int)time(0) * 10);
+            cloud1Speed = (rand() % 200);
+            srand((int)time(0) * 10);
+            float height = (rand() % 150);
+            cloud1.SetPosition(Vector2f(-200, height));
+            cloud1Active = true;
+        }
+        else {
+            cloud1.Move(Vector2f(cloud1Speed * dt.asSeconds(), 0));
+
+            if (cloud1.GetPosition().x > 1920) {
+                cloud1Active = false;
+            }
+        }
+
+        if (!cloud2Active) {
+            srand((int)time(0) * 20);
+            cloud2Speed = (rand() % 200);
+            srand((int)time(0) * 20);
+            float height = (rand() % 300) - 150;
+            cloud2.SetPosition(Vector2f(-200, height));
+            cloud2Active = true;
+        }
+        else {
+            cloud2.Move(Vector2f(cloud2Speed * dt.asSeconds(), 0));
+
+            if (cloud2.GetPosition().x > 1920) {
+                cloud2Active = false;
+            }
+        }
+
+        if (!cloud3Active) {
+            srand((int)time(0) * 30);
+            cloud3Speed = (rand() % 200);
+            srand((int)time(0) * 30);
+            float height = (rand() % 450) - 150;
+            cloud3.SetPosition(Vector2f(-200, height));
+            cloud3Active = true;
+        }
+        else {
+            cloud3.Move(Vector2f(cloud3Speed * dt.asSeconds(), 0));
+
+            if (cloud3.GetPosition().x > 1920) {
+                cloud3Active = false;
+            }
+        }
+
         window.clear();
         background.Draw(window);
 
