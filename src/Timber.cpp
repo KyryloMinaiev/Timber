@@ -6,6 +6,9 @@
 
 using namespace sf;
 
+const float TREE_HORIZONTAL_POSITION = 810;
+const float TREE_VERTICAL_POSITION = 0;
+
 class GameEntity {
 private:
     void UpdateSpritePosition() {
@@ -46,7 +49,7 @@ int main()
 
     GameEntity background("res/graphics/background.png");
     GameEntity tree("res/graphics/tree.png");
-    tree.SetPosition(Vector2f(810, 0));
+    tree.SetPosition(Vector2f(TREE_HORIZONTAL_POSITION, TREE_VERTICAL_POSITION));
 
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
