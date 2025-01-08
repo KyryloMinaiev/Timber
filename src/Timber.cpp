@@ -9,6 +9,9 @@ using namespace sf;
 const float TREE_HORIZONTAL_POSITION = 810;
 const float TREE_VERTICAL_POSITION = 0;
 
+const float START_BEE_HORIZONTAL_POSITION = 0;
+const float START_BEE_VERTICAL_POSITION = 800;
+
 class GameEntity {
 private:
     void UpdateSpritePosition() {
@@ -51,6 +54,28 @@ int main()
     GameEntity tree("res/graphics/tree.png");
     tree.SetPosition(Vector2f(TREE_HORIZONTAL_POSITION, TREE_VERTICAL_POSITION));
 
+    GameEntity bee("res/graphics/bee.png");
+    bee.SetPosition(Vector2f(START_BEE_HORIZONTAL_POSITION, START_BEE_VERTICAL_POSITION));
+
+    bool beeActive = false;
+    float beeSpeed = 0.0f;
+
+    GameEntity cloud1("res/graphics/cloud.png");
+    GameEntity cloud2("res/graphics/cloud.png");
+    GameEntity cloud3("res/graphics/cloud.png");
+
+    cloud1.SetPosition(Vector2f(0, 0));
+    cloud2.SetPosition(Vector2f(0, 250));
+    cloud3.SetPosition(Vector2f(0, 500));
+
+    bool cloud1Active = false;
+    bool cloud2Active = false;
+    bool cloud3Active = false;
+
+    float cloud1Speed = 0.0f;
+    float cloud2Speed = 0.0f;
+    float cloud3Speed = 0.0f;
+
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
             window.close();
@@ -58,7 +83,13 @@ int main()
 
         window.clear();
         background.Draw(window);
+
+        cloud1.Draw(window);
+        cloud2.Draw(window);
+        cloud3.Draw(window);
+
         tree.Draw(window);
+        bee.Draw(window);
         window.display();
     }
 
