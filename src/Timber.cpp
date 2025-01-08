@@ -42,6 +42,10 @@ public:
     void Move(Vector2f translate) {
         SetPosition(m_position + translate);
     }
+
+    Vector2f GetPosition() const {
+        return m_position;
+    }
 };
 
 
@@ -76,9 +80,28 @@ int main()
     float cloud2Speed = 0.0f;
     float cloud3Speed = 0.0f;
 
+    Clock clock;
+
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
             window.close();
+        }
+
+        Time dt = clock.restart();
+        if (!beeActive) {
+            srand((int)time(0));
+            beeSpeed = (rand() % 200) + 500;
+            srand((int)time(0) * 10);
+            float height = (rand() % 500) + 500;
+            bee.SetPosition(Vector2f(2000, height));
+            beeActive = true;
+        }
+        else {
+            bee.Move(Vector2f(-beeSpeed * dt.asSeconds(), 0));
+
+            if (bee.GetPosition().x < -100) {
+                beeActive = false;
+            }
         }
 
         window.clear();
