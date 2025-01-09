@@ -101,6 +101,16 @@ int main()
     Clock clock;
     bool paused = true;
 
+    float timeBarStartWidth = 400;
+    float timeBarHeight = 80;
+    RectangleShape timeBar(Vector2f(400, 80));
+    timeBar.setFillColor(Color::Red);
+    timeBar.setPosition(Vector2f((1920 / 2) - timeBarStartWidth / 2, 980));
+
+    Time gameTimeTotal;
+    float timeRemaining = 6.0f;
+    float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
+
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
             window.close();
@@ -108,10 +118,26 @@ int main()
 
         if (Keyboard::isKeyPressed(Keyboard::Key::Enter)) {
             paused = false;
+            timeRemaining = 6.0f;
         }
 
-        Time dt = clock.restart();
         if (!paused) {
+            Time dt = clock.restart();
+
+            timeRemaining -= dt.asSeconds();
+            timeBar.setSize(Vector2f(timeBarWidthPerSecond * timeRemaining, timeBarHeight));
+            if (timeRemaining <= 0.0f) {
+                paused = true;
+                messageText.setString("Out of time!");
+
+                FloatRect textRect = messageText.getLocalBounds();
+                messageText.setOrigin(Vector2f(textRect.position.x +
+                    textRect.size.x / 2.0f,
+                    textRect.position.y +
+                    textRect.size.y / 2.0f));
+                messageText.setPosition(Vector2f(1920 / 2.0f, 1080 / 2.0f));
+            }
+
             if (!beeActive) {
                 srand((int)time(0));
                 beeSpeed = (rand() % 200) + 500;
@@ -192,6 +218,8 @@ int main()
         bee.Draw(window);
 
         window.draw(scoreText);
+        window.draw(timeBar);
+
         if (paused) {
             window.draw(messageText);
         }
