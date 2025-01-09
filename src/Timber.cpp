@@ -3,6 +3,7 @@
 
 #include <SFML\Graphics.hpp>
 #include <memory>
+#include <sstream>
 
 using namespace sf;
 
@@ -79,6 +80,23 @@ int main()
     float cloud1Speed = 0.0f;
     float cloud2Speed = 0.0f;
     float cloud3Speed = 0.0f;
+
+    int score = 0;
+    
+    Font font("res/fonts/KOMIKAP_.ttf");
+    Text messageText(font, "Press Enter to start!", 75);
+    Text scoreText(font, "Score = 0", 100);
+
+    messageText.setFillColor(Color::White);
+    scoreText.setFillColor(Color::White);
+
+    FloatRect textRect = messageText.getLocalBounds();
+    messageText.setOrigin(Vector2f(textRect.position.x +
+        textRect.size.x / 2.0f,
+        textRect.position.y +
+        textRect.size.y / 2.0f));
+    messageText.setPosition(Vector2f(1920 / 2.0f, 1080 / 2.0f));
+    scoreText.setPosition(Vector2f(20, 20));
 
     Clock clock;
     bool paused = true;
@@ -157,6 +175,10 @@ int main()
                     cloud3Active = false;
                 }
             }
+
+            std::stringstream ss;
+            ss << "Score = " << score;
+            scoreText.setString(ss.str());
         }
 
         window.clear();
@@ -168,6 +190,12 @@ int main()
 
         tree.Draw(window);
         bee.Draw(window);
+
+        window.draw(scoreText);
+        if (paused) {
+            window.draw(messageText);
+        }
+
         window.display();
     }
 
