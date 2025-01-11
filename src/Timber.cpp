@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 #include <memory>
 #include <sstream>
+#include <vector>
 
 using namespace sf;
 
@@ -12,6 +13,13 @@ const float TREE_VERTICAL_POSITION = 0;
 
 const float START_BEE_HORIZONTAL_POSITION = 0;
 const float START_BEE_VERTICAL_POSITION = 800;
+
+void updateBranches(int seed);
+
+const int NUM_BRANCHES = 6;
+std::vector<Sprite> branches;
+enum class side {LEFT, RIGHT, NONE};
+std::vector<side> branchPositions;
 
 class GameEntity {
 private:
@@ -111,6 +119,21 @@ int main()
     float timeRemaining = 6.0f;
     float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
 
+    Texture textureBranch("res/graphics/branch.png");
+    for (int i = 0; i < NUM_BRANCHES; i++)
+    {
+        branches.push_back(Sprite(textureBranch));
+        branches[i].setPosition(Vector2f(-2000, -2000));
+        branches[i].setOrigin(Vector2f(220, 20));
+        branchPositions.push_back(side::NONE);
+    }
+
+    updateBranches(1);
+    updateBranches(2);
+    updateBranches(3);
+    updateBranches(4);
+    updateBranches(5);
+
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
             window.close();
@@ -205,6 +228,22 @@ int main()
             std::stringstream ss;
             ss << "Score = " << score;
             scoreText.setString(ss.str());
+
+            for (int i = 0; i < NUM_BRANCHES; i++)
+            {
+                float height = i * 150;
+                if (branchPositions[i] == side::LEFT) {
+                    branches[i].setPosition(Vector2f(610, height));
+                    branches[i].setRotation(degrees(180));
+                }
+                else if (branchPositions[i] == side::RIGHT) {
+                    branches[i].setPosition(Vector2f(1330, height));
+                    branches[i].setRotation(Angle::Zero);
+                }
+                else {
+                    branches[i].setPosition(Vector2f(3000, height));
+                }
+            }
         }
 
         window.clear();
@@ -213,6 +252,11 @@ int main()
         cloud1.Draw(window);
         cloud2.Draw(window);
         cloud3.Draw(window);
+
+        for (int i = 0; i < NUM_BRANCHES; i++)
+        {
+            window.draw(branches[i]);
+        }
 
         tree.Draw(window);
         bee.Draw(window);
@@ -228,4 +272,26 @@ int main()
     }
 
     return 0;
+}
+
+void updateBranches(int seed) {
+    for (int i = NUM_BRANCHES - 1; i > 0; i--)
+    {
+        branchPositions[i] = branchPositions[i - 1];
+    }
+
+    srand((int)time(0) + seed);
+    int r = (rand() % 5);
+    switch (r)
+    {
+    case 0:
+        branchPositions[0] = side::LEFT;
+        break;
+    case 1:
+        branchPositions[0] = side::RIGHT;
+        break;
+    default:
+        branchPositions[0] = side::NONE;
+        break;
+    }
 }
