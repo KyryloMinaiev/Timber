@@ -70,6 +70,27 @@ int main()
     GameEntity bee("res/graphics/bee.png");
     bee.SetPosition(Vector2f(START_BEE_HORIZONTAL_POSITION, START_BEE_VERTICAL_POSITION));
 
+    GameEntity player("res/graphics/player.png");
+    player.SetPosition(Vector2f(580, 720));
+
+    side playerSide = side::LEFT;
+
+    GameEntity deadPlayer("res/graphics/rip.png");
+    deadPlayer.SetPosition(Vector2f(600, 860));
+
+    GameEntity axe("res/graphics/axe.png");
+    axe.SetPosition(Vector2f(700, 830));
+
+    const float AXE_POSITION_LEFT = 700;
+    const float AXE_POSITION_RIGHT = 1075;
+
+    GameEntity log("res/graphics/log.png");
+    log.SetPosition(Vector2f(810, 720));
+
+    bool logActive;
+    float logSpeedX = 1000;
+    float logSpeedY = -1500;
+
     bool beeActive = false;
     float beeSpeed = 0.0f;
 
@@ -127,12 +148,6 @@ int main()
         branches[i].setOrigin(Vector2f(220, 20));
         branchPositions.push_back(side::NONE);
     }
-
-    updateBranches(1);
-    updateBranches(2);
-    updateBranches(3);
-    updateBranches(4);
-    updateBranches(5);
 
     while (window.isOpen()) {
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
@@ -259,6 +274,11 @@ int main()
         }
 
         tree.Draw(window);
+        player.Draw(window);
+        axe.Draw(window);
+        log.Draw(window);
+        deadPlayer.Draw(window);
+
         bee.Draw(window);
 
         window.draw(scoreText);
