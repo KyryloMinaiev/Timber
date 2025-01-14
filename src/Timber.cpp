@@ -2,7 +2,7 @@
 //
 
 #include <SFML\Graphics.hpp>
-#include <memory>
+#include "GameEntity.h"
 #include <sstream>
 #include <vector>
 
@@ -21,43 +21,6 @@ std::vector<Sprite> branches;
 enum class side {LEFT, RIGHT, NONE};
 std::vector<side> branchPositions;
 
-class GameEntity {
-private:
-    void UpdateSpritePosition() {
-        m_entitySprite->setPosition(m_position);
-    }
-
-    std::unique_ptr<Texture> m_spriteTexture;
-    std::unique_ptr<Sprite> m_entitySprite;
-    Vector2f m_position;
-public:
-    GameEntity(const std::filesystem::path& spriteName) : m_position(0, 0){
-        m_spriteTexture = std::make_unique<Texture>(spriteName);
-        m_entitySprite = std::make_unique<Sprite>(*m_spriteTexture.get());
-        UpdateSpritePosition();
-    }
-
-    ~GameEntity() = default;
-
-    void SetPosition(Vector2f position) {
-        m_position = position;
-        UpdateSpritePosition();
-    }
-
-    void Draw(RenderWindow& window) {
-        window.draw(*m_entitySprite.get());
-    }
-
-    void Move(Vector2f translate) {
-        SetPosition(m_position + translate);
-    }
-
-    Vector2f GetPosition() const {
-        return m_position;
-    }
-};
-
-
 int main()
 {
     VideoMode videoMode(Vector2u(1920, 1080));
@@ -65,27 +28,27 @@ int main()
 
     GameEntity background("res/graphics/background.png");
     GameEntity tree("res/graphics/tree.png");
-    tree.SetPosition(Vector2f(TREE_HORIZONTAL_POSITION, TREE_VERTICAL_POSITION));
+    tree.setPosition(Vector2f(TREE_HORIZONTAL_POSITION, TREE_VERTICAL_POSITION));
 
     GameEntity bee("res/graphics/bee.png");
-    bee.SetPosition(Vector2f(START_BEE_HORIZONTAL_POSITION, START_BEE_VERTICAL_POSITION));
+    bee.setPosition(Vector2f(START_BEE_HORIZONTAL_POSITION, START_BEE_VERTICAL_POSITION));
 
     GameEntity player("res/graphics/player.png");
-    player.SetPosition(Vector2f(580, 720));
+    player.setPosition(Vector2f(580, 720));
 
     side playerSide = side::LEFT;
 
     GameEntity deadPlayer("res/graphics/rip.png");
-    deadPlayer.SetPosition(Vector2f(600, 860));
+    deadPlayer.setPosition(Vector2f(600, 860));
 
     GameEntity axe("res/graphics/axe.png");
-    axe.SetPosition(Vector2f(700, 830));
+    axe.setPosition(Vector2f(700, 830));
 
     const float AXE_POSITION_LEFT = 700;
     const float AXE_POSITION_RIGHT = 1075;
 
     GameEntity log("res/graphics/log.png");
-    log.SetPosition(Vector2f(810, 720));
+    log.setPosition(Vector2f(810, 720));
 
     bool logActive = false;
     float logSpeedX = 1000;
@@ -98,9 +61,9 @@ int main()
     GameEntity cloud2("res/graphics/cloud.png");
     GameEntity cloud3("res/graphics/cloud.png");
 
-    cloud1.SetPosition(Vector2f(0, 0));
-    cloud2.SetPosition(Vector2f(0, 250));
-    cloud3.SetPosition(Vector2f(0, 500));
+    cloud1.setPosition(Vector2f(0, 0));
+    cloud2.setPosition(Vector2f(0, 250));
+    cloud3.setPosition(Vector2f(0, 500));
 
     bool cloud1Active = false;
     bool cloud2Active = false;
@@ -156,7 +119,7 @@ int main()
             if (event->is<Event::KeyPressed>() && !paused) {
                 acceptInput = true;
 
-                axe.SetPosition(Vector2f(2000, axe.GetPosition().y));
+                axe.setPosition(Vector2f(2000, axe.getPosition().y));
             }
         }
 
@@ -174,8 +137,8 @@ int main()
                 branchPositions[i] = side::NONE;
             }
 
-            deadPlayer.SetPosition(Vector2f(675, 2000));
-            player.SetPosition(Vector2f(580, 720));
+            deadPlayer.setPosition(Vector2f(675, 2000));
+            player.setPosition(Vector2f(580, 720));
 
             acceptInput = true;
         }
@@ -186,12 +149,12 @@ int main()
                 score++;
 
                 timeRemaining += (2 / score) + 0.15f;
-                axe.SetPosition(Vector2f(AXE_POSITION_RIGHT, axe.GetPosition().y));
-                player.SetPosition(Vector2f(1200, 720));
+                axe.setPosition(Vector2f(AXE_POSITION_RIGHT, axe.getPosition().y));
+                player.setPosition(Vector2f(1200, 720));
 
                 updateBranches(score);
 
-                log.SetPosition(Vector2f(810, 720));
+                log.setPosition(Vector2f(810, 720));
                 logSpeedX = -5000;
                 logActive = true;
 
@@ -203,12 +166,12 @@ int main()
                 score++;
 
                 timeRemaining += (2 / score) + 0.15f;
-                axe.SetPosition(Vector2f(AXE_POSITION_LEFT, axe.GetPosition().y));
-                player.SetPosition(Vector2f(580, 720));
+                axe.setPosition(Vector2f(AXE_POSITION_LEFT, axe.getPosition().y));
+                player.setPosition(Vector2f(580, 720));
 
                 updateBranches(score);
 
-                log.SetPosition(Vector2f(810, 720));
+                log.setPosition(Vector2f(810, 720));
                 logSpeedX = 5000;
                 logActive = true;
 
@@ -238,13 +201,13 @@ int main()
                 beeSpeed = (rand() % 200) + 500;
                 srand((int)time(0) * 10);
                 float height = (rand() % 500) + 500;
-                bee.SetPosition(Vector2f(2000, height));
+                bee.setPosition(Vector2f(2000, height));
                 beeActive = true;
             }
             else {
-                bee.Move(Vector2f(-beeSpeed * dt.asSeconds(), 0));
+                bee.move(Vector2f(-beeSpeed * dt.asSeconds(), 0));
 
-                if (bee.GetPosition().x < -100) {
+                if (bee.getPosition().x < -100) {
                     beeActive = false;
                 }
             }
@@ -254,13 +217,13 @@ int main()
                 cloud1Speed = (rand() % 200);
                 srand((int)time(0) * 10);
                 float height = (rand() % 150);
-                cloud1.SetPosition(Vector2f(-200, height));
+                cloud1.setPosition(Vector2f(-200, height));
                 cloud1Active = true;
             }
             else {
-                cloud1.Move(Vector2f(cloud1Speed * dt.asSeconds(), 0));
+                cloud1.move(Vector2f(cloud1Speed * dt.asSeconds(), 0));
 
-                if (cloud1.GetPosition().x > 1920) {
+                if (cloud1.getPosition().x > 1920) {
                     cloud1Active = false;
                 }
             }
@@ -270,13 +233,13 @@ int main()
                 cloud2Speed = (rand() % 200);
                 srand((int)time(0) * 20);
                 float height = (rand() % 300) - 150;
-                cloud2.SetPosition(Vector2f(-200, height));
+                cloud2.setPosition(Vector2f(-200, height));
                 cloud2Active = true;
             }
             else {
-                cloud2.Move(Vector2f(cloud2Speed * dt.asSeconds(), 0));
+                cloud2.move(Vector2f(cloud2Speed * dt.asSeconds(), 0));
 
-                if (cloud2.GetPosition().x > 1920) {
+                if (cloud2.getPosition().x > 1920) {
                     cloud2Active = false;
                 }
             }
@@ -286,13 +249,13 @@ int main()
                 cloud3Speed = (rand() % 200);
                 srand((int)time(0) * 30);
                 float height = (rand() % 450) - 150;
-                cloud3.SetPosition(Vector2f(-200, height));
+                cloud3.setPosition(Vector2f(-200, height));
                 cloud3Active = true;
             }
             else {
-                cloud3.Move(Vector2f(cloud3Speed * dt.asSeconds(), 0));
+                cloud3.move(Vector2f(cloud3Speed * dt.asSeconds(), 0));
 
-                if (cloud3.GetPosition().x > 1920) {
+                if (cloud3.getPosition().x > 1920) {
                     cloud3Active = false;
                 }
             }
@@ -319,43 +282,43 @@ int main()
 
             if (logActive)
             {
-                log.SetPosition(
-                    Vector2f(log.GetPosition().x +
+                log.setPosition(
+                    Vector2f(log.getPosition().x +
                     (logSpeedX * dt.asSeconds()),
 
-                    log.GetPosition().y +
+                    log.getPosition().y +
                     (logSpeedY * dt.asSeconds())));
 
                 // Has the log reached the right hand edge?
-                if (log.GetPosition().x < -100 ||
-                    log.GetPosition().x > 2000)
+                if (log.getPosition().x < -100 ||
+                    log.getPosition().x > 2000)
                 {
                     // Set it up ready to be a whole new log next frame
                     logActive = false;
-                    log.SetPosition(Vector2f(810, 720));
+                    log.setPosition(Vector2f(810, 720));
                 }
             }
         }
 
         window.clear();
-        background.Draw(window);
+        background.draw(window);
 
-        cloud1.Draw(window);
-        cloud2.Draw(window);
-        cloud3.Draw(window);
+        cloud1.draw(window);
+        cloud2.draw(window);
+        cloud3.draw(window);
 
         for (int i = 0; i < NUM_BRANCHES; i++)
         {
             window.draw(branches[i]);
         }
 
-        tree.Draw(window);
-        player.Draw(window);
-        axe.Draw(window);
-        log.Draw(window);
-        deadPlayer.Draw(window);
+        tree.draw(window);
+        player.draw(window);
+        axe.draw(window);
+        log.draw(window);
+        deadPlayer.draw(window);
 
-        bee.Draw(window);
+        bee.draw(window);
 
         window.draw(scoreText);
         window.draw(timeBar);
