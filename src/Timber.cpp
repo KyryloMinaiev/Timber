@@ -87,7 +87,7 @@ int main()
     GameEntity log("res/graphics/log.png");
     log.SetPosition(Vector2f(810, 720));
 
-    bool logActive;
+    bool logActive = false;
     float logSpeedX = 1000;
     float logSpeedY = -1500;
 
@@ -149,7 +149,17 @@ int main()
         branchPositions.push_back(side::NONE);
     }
 
+    bool acceptInput = false;
+
     while (window.isOpen()) {
+        while (const std::optional event = window.pollEvent()) {
+            if (event->is<Event::KeyPressed>() && !paused) {
+                acceptInput = true;
+
+                axe.SetPosition(Vector2f(2000, axe.GetPosition().y));
+            }
+        }
+
         if (Keyboard::isKeyPressed(Keyboard::Key::Escape)) {
             window.close();
         }
@@ -157,6 +167,53 @@ int main()
         if (Keyboard::isKeyPressed(Keyboard::Key::Enter)) {
             paused = false;
             timeRemaining = 6.0f;
+            score = 0;
+
+            for (int i = 0; i < NUM_BRANCHES; i++)
+            {
+                branchPositions[i] = side::NONE;
+            }
+
+            deadPlayer.SetPosition(Vector2f(675, 2000));
+            player.SetPosition(Vector2f(580, 720));
+
+            acceptInput = true;
+        }
+
+        if (acceptInput) {
+            if (Keyboard::isKeyPressed(Keyboard::Key::Right)) {
+                playerSide = side::RIGHT;
+                score++;
+
+                timeRemaining += (2 / score) + 0.15f;
+                axe.SetPosition(Vector2f(AXE_POSITION_RIGHT, axe.GetPosition().y));
+                player.SetPosition(Vector2f(1200, 720));
+
+                updateBranches(score);
+
+                log.SetPosition(Vector2f(810, 720));
+                logSpeedX = -5000;
+                logActive = true;
+
+                acceptInput = false;
+            }
+
+            if (Keyboard::isKeyPressed(Keyboard::Key::Left)) {
+                playerSide = side::LEFT;
+                score++;
+
+                timeRemaining += (2 / score) + 0.15f;
+                axe.SetPosition(Vector2f(AXE_POSITION_LEFT, axe.GetPosition().y));
+                player.SetPosition(Vector2f(580, 720));
+
+                updateBranches(score);
+
+                log.SetPosition(Vector2f(810, 720));
+                logSpeedX = 5000;
+                logActive = true;
+
+                acceptInput = false;
+            }
         }
 
         if (!paused) {
@@ -257,6 +314,25 @@ int main()
                 }
                 else {
                     branches[i].setPosition(Vector2f(3000, height));
+                }
+            }
+
+            if (logActive)
+            {
+                log.SetPosition(
+                    Vector2f(log.GetPosition().x +
+                    (logSpeedX * dt.asSeconds()),
+
+                    log.GetPosition().y +
+                    (logSpeedY * dt.asSeconds())));
+
+                // Has the log reached the right hand edge?
+                if (log.GetPosition().x < -100 ||
+                    log.GetPosition().x > 2000)
+                {
+                    // Set it up ready to be a whole new log next frame
+                    logActive = false;
+                    log.SetPosition(Vector2f(810, 720));
                 }
             }
         }
