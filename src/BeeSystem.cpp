@@ -7,7 +7,7 @@ BeeSystem::BeeSystem(EntitySystem* entitySystem) : GameSystem(entitySystem), m_b
                                                    m_beeSpeed(0)
 {
     m_bee = entitySystem->createEntity("res/graphics/bee.png",
-                               sf::Vector2f(START_BEE_HORIZONTAL_POSITION, START_BEE_VERTICAL_POSITION));
+                               sf::Vector2f(0, 0));
 }
 
 BeeSystem::~BeeSystem() = default;
