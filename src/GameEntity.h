@@ -1,28 +1,35 @@
 ﻿#pragma once
 
-#include <SFML\Graphics.hpp>
+#include <filesystem>
 #include <memory>
-using namespace sf;
+#include <SFML/System/Vector2.hpp>
+
+namespace sf
+{
+    class Sprite;
+    class Texture;
+}
 
 class GameEntity {
 public:
+    GameEntity();
     GameEntity(const std::filesystem::path& spriteName);
-    GameEntity(const std::filesystem::path& spriteName, const Vector2f& position);
+    GameEntity(const std::filesystem::path& spriteName, const sf::Vector2f& position);
     ~GameEntity();
 
-    void setPosition(Vector2f position);
-    void draw(RenderWindow& window) const;
-    void move(Vector2f translate);
-    Vector2f getPosition() const;
+    void setPosition(sf::Vector2f position);
+    void move(sf::Vector2f translate);
+    sf::Vector2f getPosition() const;
     void setActive(bool active);
     bool isActive() const;
+    sf::Sprite* getEntitySprite() const;
         
 private:
     void updateSpritePosition() const;
     void initializePointers(const std::filesystem::path& spriteName);
 
-    std::unique_ptr<Texture> m_spriteTexture;
-    std::unique_ptr<Sprite> m_entitySprite;
-    Vector2f m_position;
+    std::unique_ptr<sf::Texture> m_spriteTexture;
+    std::unique_ptr<sf::Sprite> m_entitySprite;
+    sf::Vector2f m_position;
     bool m_enabled;
 };
