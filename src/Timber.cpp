@@ -7,8 +7,8 @@
 int main()
 {
     sf::VideoMode videoMode = sf::VideoMode::getDesktopMode();
-    std::unique_ptr<sf::RenderWindow> window = std::make_unique<sf::RenderWindow>(videoMode, "Timber", sf::State::Fullscreen);
-    std::unique_ptr<Game> game = std::make_unique<Game>(window.get());
+    sf::RenderWindow window(videoMode, "Timber", sf::State::Fullscreen);
+    std::unique_ptr<Game> game = std::make_unique<Game>(&window);
     game->Run();
     return 0;
 }
