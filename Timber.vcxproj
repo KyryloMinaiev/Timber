@@ -19,13 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BeeSystem.cpp" />
+    <ClCompile Include="src\EntitySystem.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameEntity.cpp" />
+    <ClCompile Include="src\Screen.cpp" />
     <ClCompile Include="src\Timber.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BeeSystem.h" />
+    <ClInclude Include="src\EntitySystem.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameEntity.h" />
+    <ClInclude Include="src\GameSystem.h" />
+    <ClInclude Include="src\Screen.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

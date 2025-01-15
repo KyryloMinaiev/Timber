@@ -1,27 +1,38 @@
 ﻿#pragma once
 
-#include <SFML\Graphics.hpp>
-#include "GameEntity.h"
-#include <sstream>
 #include <vector>
+#include <memory>
+#include "GameSystem.h"
 
-using namespace sf;
+namespace sf
+{
+    class RenderWindow;
+}
+
+class EntitySystem;
+class Screen;
 
 class Game
 {
 public:
-    void Run(RenderWindow& window);
+    Game(sf::RenderWindow* window);
+    ~Game();
+    
+    void Run();
 private:
-    const float TREE_HORIZONTAL_POSITION = 810;
-    const float TREE_VERTICAL_POSITION = 0;
+    // const float TREE_HORIZONTAL_POSITION = 810;
+    // const float TREE_VERTICAL_POSITION = 0;
+    //
+    //
+    // void updateBranches(int seed);
+    //
+    // const int NUM_BRANCHES = 6;
+    // //std::vector<Sprite> branches;
+    // enum class side {LEFT, RIGHT, NONE};
+    // std::vector<side> branchPositions;
 
-    const float START_BEE_HORIZONTAL_POSITION = 0;
-    const float START_BEE_VERTICAL_POSITION = 800;
-
-    void updateBranches(int seed);
-
-    const int NUM_BRANCHES = 6;
-    std::vector<Sprite> branches;
-    enum class side {LEFT, RIGHT, NONE};
-    std::vector<side> branchPositions;
+    std::unique_ptr<EntitySystem> m_entitySystem;
+    std::vector<std::unique_ptr<GameSystem>> m_gameSystems;
+    sf::RenderWindow* m_window;
+    std::unique_ptr<Screen> m_screen;
 };
