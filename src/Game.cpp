@@ -5,12 +5,14 @@
 #include "Screen.h"
 
 #include "BeeSystem.h"
+#include "CloudsSystem.h"
 
 using namespace sf;
 
 Game::Game(RenderWindow* window): m_window(window)
 {
     m_entitySystem = std::make_unique<EntitySystem>(window);
+    m_gameSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get()));
     m_gameSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get()));
     m_screen = std::make_unique<Screen>(window);
 }
