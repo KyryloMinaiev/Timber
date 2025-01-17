@@ -1,6 +1,8 @@
 ﻿#include "Game.h"
 #include <SFML\Graphics.hpp>
 #include <sstream>
+
+#include "BackgroundSystem.h"
 #include "EntitySystem.h"
 #include "Screen.h"
 
@@ -11,10 +13,11 @@ using namespace sf;
 
 Game::Game(RenderWindow* window): m_window(window)
 {
+    m_screen = std::make_unique<Screen>(window);
     m_entitySystem = std::make_unique<EntitySystem>(window);
+    m_gameSystems.push_back(std::make_unique<BackgroundSystem>(m_entitySystem.get()));
     m_gameSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get()));
     m_gameSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get()));
-    m_screen = std::make_unique<Screen>(window);
 }
 
 Game::~Game() = default;

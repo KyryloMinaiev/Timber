@@ -7,7 +7,7 @@ CloudsSystem::CloudsSystem(EntitySystem* entitySystem): GameSystem(entitySystem)
 {
     for (int i = 0; i < k_cloudsCount; ++i)
     {
-        m_clouds.push_back({entitySystem->createEntity("res/graphics/cloud.png"), false, 0});
+        m_clouds.push_back({entitySystem->createEntity("res/graphics/cloud.png", sf::Vector2f(0, 0), -50), false, 0});
     }
 }
 

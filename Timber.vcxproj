@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BackgroundSystem.cpp" />
     <ClCompile Include="src\BeeSystem.cpp" />
     <ClCompile Include="src\CloudsSystem.cpp" />
     <ClCompile Include="src\EntitySystem.cpp" />
@@ -28,6 +29,7 @@
     <ClCompile Include="src\Timber.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BackgroundSystem.h" />
     <ClInclude Include="src\BeeSystem.h" />
     <ClInclude Include="src\CloudsSystem.h" />
     <ClInclude Include="src\EntitySystem.h" />
