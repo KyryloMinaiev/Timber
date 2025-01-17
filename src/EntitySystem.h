@@ -14,10 +14,12 @@ class EntitySystem
 {
 public:
     EntitySystem(sf::RenderWindow* window);
-    void drawEntities() const;
-    GameEntity* createEntity(const std::filesystem::path& spriteName, sf::Vector2f position);
+    void drawEntities();
+    GameEntity* createEntity(const std::filesystem::path& spriteName, sf::Vector2f position, float depth = 0);
     GameEntity* createEntity(const std::filesystem::path& spriteName);
 private:
+    void sortEntities();
+    
     std::vector<std::unique_ptr<GameEntity>> m_entities;
     sf::RenderWindow* m_renderWindow;
 };
