@@ -11,7 +11,7 @@ GameEntity::GameEntity(const std::filesystem::path& spriteName): m_position(0, 0
     updateSpritePosition();
 }
 
-GameEntity::GameEntity(const std::filesystem::path& spriteName, const sf::Vector2f& position): m_position(position), m_enabled(true)
+GameEntity::GameEntity(const std::filesystem::path& spriteName, const sf::Vector2f& position, float depth) : m_position(position), m_enabled(true), m_depth(depth)
 {
     initializePointers(spriteName);
     updateSpritePosition();
@@ -48,6 +48,21 @@ bool GameEntity::isActive() const
 sf::Sprite* GameEntity::getEntitySprite() const
 {
     return m_entitySprite.get();
+}
+
+void GameEntity::setScale(sf::Vector2f scale) const
+{
+    m_entitySprite->setScale(scale);
+}
+
+void GameEntity::setDepth(float depth)
+{
+    m_depth = depth;
+}
+
+bool GameEntity::compare(const std::unique_ptr<GameEntity>& first, const std::unique_ptr<GameEntity>& second)
+{
+    return first->m_depth < second->m_depth;
 }
 
 void GameEntity::updateSpritePosition() const

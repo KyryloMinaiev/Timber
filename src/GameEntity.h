@@ -14,7 +14,7 @@ class GameEntity {
 public:
     GameEntity();
     GameEntity(const std::filesystem::path& spriteName);
-    GameEntity(const std::filesystem::path& spriteName, const sf::Vector2f& position);
+    GameEntity(const std::filesystem::path& spriteName, const sf::Vector2f& position, float depth = 0);
     ~GameEntity();
 
     void setPosition(sf::Vector2f position);
@@ -23,7 +23,10 @@ public:
     void setActive(bool active);
     bool isActive() const;
     sf::Sprite* getEntitySprite() const;
-        
+    void setScale(sf::Vector2f scale) const;
+    void setDepth(float depth);
+
+    static bool compare(const std::unique_ptr<GameEntity>& first, const std::unique_ptr<GameEntity>& second);
 private:
     void updateSpritePosition() const;
     void initializePointers(const std::filesystem::path& spriteName);
@@ -32,4 +35,5 @@ private:
     std::unique_ptr<sf::Sprite> m_entitySprite;
     sf::Vector2f m_position;
     bool m_enabled;
+    float m_depth;
 };
