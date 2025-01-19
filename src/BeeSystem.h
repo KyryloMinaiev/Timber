@@ -6,7 +6,7 @@ class GameEntity;
 class BeeSystem : public GameSystem
 {
 public:
-    BeeSystem(EntitySystem* entitySystem);
+    BeeSystem(EntitySystem* entitySystem, EventManager* eventManager);
     ~BeeSystem() override;
 
     void update(sf::Time& dt) override;

@@ -3,11 +3,12 @@
 #include "Screen.h"
 #include "EntitySystem.h"
 
-BeeSystem::BeeSystem(EntitySystem* entitySystem) : GameSystem(entitySystem), m_beeOusideScreen(true),
-                                                   m_beeSpeed(0)
+BeeSystem::BeeSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager),
+                                                                              m_beeOusideScreen(true),
+                                                                              m_beeSpeed(0)
 {
     m_bee = entitySystem->createEntity("res/graphics/bee.png",
-                               sf::Vector2f(0, 0), 5);
+                                       sf::Vector2f(0, 0), 5);
 }
 
 BeeSystem::~BeeSystem() = default;
