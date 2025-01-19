@@ -2,11 +2,12 @@
 #include <SFML/System/Time.hpp>
 
 class EntitySystem;
+class EventManager;
 
 class GameSystem
 {
 public:
-    GameSystem(EntitySystem* entitySystem) : entitySystem(entitySystem)
+    GameSystem(EntitySystem* entitySystem, EventManager* eventManager) : p_entitySystem(entitySystem), p_eventManager(eventManager)
     {
     }
 
@@ -14,5 +15,6 @@ public:
     virtual void update(sf::Time& dt) = 0;
 
 protected:
-    EntitySystem* entitySystem;
+    EntitySystem* p_entitySystem;
+    EventManager* p_eventManager;
 };
