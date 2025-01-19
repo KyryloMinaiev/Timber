@@ -3,7 +3,7 @@
 #include "EntitySystem.h"
 #include "Screen.h"
 
-CloudsSystem::CloudsSystem(EntitySystem* entitySystem): GameSystem(entitySystem)
+CloudsSystem::CloudsSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager)
 {
     for (int i = 0; i < k_cloudsCount; ++i)
     {

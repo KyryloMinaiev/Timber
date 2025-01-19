@@ -7,7 +7,7 @@ class GameEntity;
 class CloudsSystem : public GameSystem
 {
 public:
-    explicit CloudsSystem(EntitySystem* entitySystem);
+    CloudsSystem(EntitySystem* entitySystem, EventManager* eventManager);
     ~CloudsSystem() override;
     
     void update(sf::Time& dt) override;
