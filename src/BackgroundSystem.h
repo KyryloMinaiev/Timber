@@ -8,7 +8,7 @@ class GameEntity;
 class BackgroundSystem : public GameSystem
 {
 public:
-    explicit BackgroundSystem(EntitySystem* entitySystem);
+    BackgroundSystem(EntitySystem* entitySystem, EventManager* eventManager);
     ~BackgroundSystem() override;
     void update(sf::Time& dt) override;
 private:
