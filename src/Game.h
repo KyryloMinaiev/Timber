@@ -11,6 +11,7 @@ namespace sf
 
 class EntitySystem;
 class Screen;
+class EventManager;
 
 class Game
 {
@@ -32,6 +33,7 @@ private:
     // std::vector<side> branchPositions;
 
     std::unique_ptr<EntitySystem> m_entitySystem;
+    std::unique_ptr<EventManager> m_eventManager;
     std::vector<std::unique_ptr<GameSystem>> m_gameSystems;
     sf::RenderWindow* m_window;
     std::unique_ptr<Screen> m_screen;

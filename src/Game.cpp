@@ -1,6 +1,5 @@
 ﻿#include "Game.h"
 #include <SFML\Graphics.hpp>
-#include <sstream>
 
 #include "BackgroundSystem.h"
 #include "EntitySystem.h"
@@ -8,6 +7,7 @@
 
 #include "BeeSystem.h"
 #include "CloudsSystem.h"
+#include "EventManager.h"
 
 using namespace sf;
 
@@ -15,21 +15,16 @@ Game::Game(RenderWindow* window): m_window(window)
 {
     m_screen = std::make_unique<Screen>(window);
     m_entitySystem = std::make_unique<EntitySystem>(window);
-    m_gameSystems.push_back(std::make_unique<BackgroundSystem>(m_entitySystem.get()));
-    m_gameSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get()));
-    m_gameSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get()));
+    m_eventManager = std::make_unique<EventManager>();
+    m_gameSystems.push_back(std::make_unique<BackgroundSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_gameSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_gameSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get(), m_eventManager.get()));
 }
 
 Game::~Game() = default;
 
 void Game::Run()
 {
-    // GameEntity background("res/graphics/background.png");
-    // GameEntity tree("res/graphics/tree.png");
-    // tree.setPosition(Vector2f(TREE_HORIZONTAL_POSITION, TREE_VERTICAL_POSITION));
-    //
-    // GameEntity bee("res/graphics/bee.png");
-    // bee.setPosition(Vector2f(START_BEE_HORIZONTAL_POSITION, START_BEE_VERTICAL_POSITION));
     //
     // GameEntity player("res/graphics/player.png");
     // player.setPosition(Vector2f(580, 720));
@@ -52,24 +47,6 @@ void Game::Run()
     // float logSpeedX = 1000;
     // float logSpeedY = -1500;
     //
-    // bool beeActive = false;
-    // float beeSpeed = 0.0f;
-    //
-    // GameEntity cloud1("res/graphics/cloud.png");
-    // GameEntity cloud2("res/graphics/cloud.png");
-    // GameEntity cloud3("res/graphics/cloud.png");
-    //
-    // cloud1.setPosition(Vector2f(0, 0));
-    // cloud2.setPosition(Vector2f(0, 250));
-    // cloud3.setPosition(Vector2f(0, 500));
-    //
-    // bool cloud1Active = false;
-    // bool cloud2Active = false;
-    // bool cloud3Active = false;
-    //
-    // float cloud1Speed = 0.0f;
-    // float cloud2Speed = 0.0f;
-    // float cloud3Speed = 0.0f;
     //
     // int score = 0;
     //
@@ -204,81 +181,6 @@ void Game::Run()
         //         messageText.setPosition(Vector2f(1920 / 2.0f, 1080 / 2.0f));
         //     }
         //
-        //     if (!beeActive)
-        //     {
-        //         srand((int)time(0));
-        //         beeSpeed = (rand() % 200) + 500;
-        //         srand((int)time(0) * 10);
-        //         float height = (rand() % 500) + 500;
-        //         bee.setPosition(Vector2f(2000, height));
-        //         beeActive = true;
-        //     }
-        //     else
-        //     {
-        //         bee.move(Vector2f(-beeSpeed * dt.asSeconds(), 0));
-        //
-        //         if (bee.getPosition().x < -100)
-        //         {
-        //             beeActive = false;
-        //         }
-        //     }
-        //
-        //     if (!cloud1Active)
-        //     {
-        //         srand((int)time(0) * 10);
-        //         cloud1Speed = (rand() % 200);
-        //         srand((int)time(0) * 10);
-        //         float height = (rand() % 150);
-        //         cloud1.setPosition(Vector2f(-200, height));
-        //         cloud1Active = true;
-        //     }
-        //     else
-        //     {
-        //         cloud1.move(Vector2f(cloud1Speed * dt.asSeconds(), 0));
-        //
-        //         if (cloud1.getPosition().x > 1920)
-        //         {
-        //             cloud1Active = false;
-        //         }
-        //     }
-        //
-        //     if (!cloud2Active)
-        //     {
-        //         srand((int)time(0) * 20);
-        //         cloud2Speed = (rand() % 200);
-        //         srand((int)time(0) * 20);
-        //         float height = (rand() % 300) - 150;
-        //         cloud2.setPosition(Vector2f(-200, height));
-        //         cloud2Active = true;
-        //     }
-        //     else
-        //     {
-        //         cloud2.move(Vector2f(cloud2Speed * dt.asSeconds(), 0));
-        //
-        //         if (cloud2.getPosition().x > 1920)
-        //         {
-        //             cloud2Active = false;
-        //         }
-        //     }
-        //
-        //     if (!cloud3Active)
-        //     {
-        //         srand((int)time(0) * 30);
-        //         cloud3Speed = (rand() % 200);
-        //         srand((int)time(0) * 30);
-        //         float height = (rand() % 450) - 150;
-        //         cloud3.setPosition(Vector2f(-200, height));
-        //         cloud3Active = true;
-        //     }
-        //     else
-        //     {
-        //         cloud3.move(Vector2f(cloud3Speed * dt.asSeconds(), 0));
-        //
-        //         if (cloud3.getPosition().x > 1920)
-        //         {
-        //             cloud3Active = false;
-        //         }
-        //     }
         //
         //     std::stringstream ss;
         //     ss << "Score = " << score;
@@ -330,24 +232,16 @@ void Game::Run()
 
         m_window->clear();
         m_entitySystem->drawEntities();
-        // background.draw(window);
-        //
-        // cloud1.draw(window);
-        // cloud2.draw(window);
-        // cloud3.draw(window);
         //
         // for (int i = 0; i < NUM_BRANCHES; i++)
         // {
         //     window.draw(branches[i]);
         // }
         //
-        // tree.draw(window);
         // player.draw(window);
         // axe.draw(window);
         // log.draw(window);
         // deadPlayer.draw(window);
-        //
-        // bee.draw(window);
 
         // m_window->draw(scoreText);
         // m_window->draw(timeBar);
