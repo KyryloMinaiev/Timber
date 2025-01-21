@@ -7,7 +7,8 @@ CloudsSystem::CloudsSystem(EntitySystem* entitySystem, EventManager* eventManage
 {
     for (int i = 0; i < k_cloudsCount; ++i)
     {
-        m_clouds.push_back({entitySystem->createEntity("res/graphics/cloud.png", sf::Vector2f(0, 0), -50), false, 0});
+        m_clouds.push_back({entitySystem->createEntity("res/graphics/cloud.png", sf::Vector2f(0, 0), -50), 0});
+        m_clouds[i].cloudEntity->setActive(false);
     }
 }
 
@@ -25,14 +26,14 @@ void CloudsSystem::updateCloud(CloudData& cloudData, int index, sf::Time& dt)
 {
     auto screenWidth = Screen::getWindowSize().x;
     
-    if (!cloudData.cloudActive)
+    if (!cloudData.cloudEntity->isActive())
     {
         srand((int)time(0) * index);
         cloudData.cloudSpeed = (rand() % 200);
         srand((int)time(0) * index);
         float height = (rand() % 150);
         cloudData.cloudEntity->setPosition(sf::Vector2f(-200, height));
-        cloudData.cloudActive = true;
+        cloudData.cloudEntity->setActive(true);
 
         return;
     }
@@ -40,6 +41,6 @@ void CloudsSystem::updateCloud(CloudData& cloudData, int index, sf::Time& dt)
     cloudData.cloudEntity->move(sf::Vector2f(cloudData.cloudSpeed * dt.asSeconds(), 0));
     if (cloudData.cloudEntity->getPosition().x > screenWidth)
     {
-        cloudData.cloudActive = false;
+        cloudData.cloudEntity->setActive(false);
     }
 }

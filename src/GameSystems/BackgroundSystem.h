@@ -12,7 +12,7 @@ public:
     ~BackgroundSystem() override;
     void update(sf::Time& dt) override;
 private:
-    const float k_defaultTreePosition = 810;
+    static constexpr float k_defaultTreePosition = 810;
     
     void createBackground(sf::Vector2u screenSize) const;
     void createTree(sf::Vector2u screenSize) const;

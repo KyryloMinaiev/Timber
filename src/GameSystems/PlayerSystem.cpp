@@ -83,8 +83,7 @@ sf::Vector2f PlayerSystem::getPlayerPosition(side side) const
 
 void PlayerSystem::recalculatePlayerPositions()
 {
-    auto screenSize = static_cast<sf::Vector2f>(Screen::getWindowSize());
-    auto scale = sf::Vector2f(screenSize.x / 1920.0f, screenSize.y / 1080.0f);
+    auto scale = Screen::getScaleFactor();
     
     for (auto& playerPosition : m_playerPositions)
     {

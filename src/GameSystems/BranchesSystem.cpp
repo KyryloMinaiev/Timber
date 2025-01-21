@@ -2,13 +2,17 @@
 
 #include "../EntitySystem.h"
 #include "../GameEntity.h"
+#include "../Screen.h"
 
 BranchesSystem::BranchesSystem(EntitySystem* entitySystem, EventManager* eventManager) : GameSystem(entitySystem, eventManager), m_seedCounter(0)
 {
-    for (int i = 0; i < NUM_BRANCHES; ++i)
+    auto screenScale = Screen::getScaleFactor();
+    
+    for (int i = 0; i < k_branchesCount; ++i)
     {
         m_branches.push_back(entitySystem->createEntity("res/graphics/branch.png", sf::Vector2f(), 8));
         m_branches[i]->setOrigin(sf::Vector2f(220, 20));
+        m_branches[i]->setScale(screenScale);
         m_branchPositions.push_back(side::NONE);
     }
     
@@ -57,7 +61,7 @@ void BranchesSystem::updateBranches()
 {
     m_seedCounter++;
     
-    for (int i = NUM_BRANCHES - 1; i > 0; i--)
+    for (int i = k_branchesCount - 1; i > 0; i--)
     {
         m_branchPositions[i] = m_branchPositions[i - 1];
     }
@@ -82,20 +86,22 @@ void BranchesSystem::updateBranches()
 
 void BranchesSystem::placeBranches() const
 {
-    for (int i = 0; i < NUM_BRANCHES; i++)
+    auto scale = Screen::getScaleFactor();
+    
+    for (int i = 0; i < k_branchesCount; i++)
     {
         auto branch = m_branches[i];
         branch->setActive(true);
         
-        float height = i * 150;
+        float height = static_cast<float>(i) * k_distanceBetweenBranches * scale.y;
         if (m_branchPositions[i] == side::LEFT)
         {
-            branch->setPosition(sf::Vector2f(610, height));
+            branch->setPosition(sf::Vector2f(scale.x * k_leftSidePosition, height));
             branch->setRotation(sf::degrees(180));
         }
         else if (m_branchPositions[i] == side::RIGHT)
         {
-            branch->setPosition(sf::Vector2f(1330, height));
+            branch->setPosition(sf::Vector2f(scale.x * 1330, height));
             branch->setRotation(sf::Angle::Zero);
         }
         else

@@ -22,7 +22,11 @@ private:
     void placeBranches() const;
     void disableBranches() const;
 
-    const int NUM_BRANCHES = 6;
+    static constexpr int k_branchesCount = 6;
+    static constexpr float k_distanceBetweenBranches = 150;
+    static constexpr float k_leftSidePosition = 590;
+    static constexpr float k_rightSidePosition = 1330;
+    
     int m_seedCounter;
     std::vector<GameEntity*> m_branches;
     std::vector<side> m_branchPositions;

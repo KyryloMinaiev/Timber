@@ -15,12 +15,11 @@ private:
     struct CloudData
     {
         GameEntity* cloudEntity;
-        bool cloudActive;
         float cloudSpeed;
     };
 
     static void updateCloud(CloudData& cloudData, int index, sf::Time& dt);
 
-    const int k_cloudsCount = 3;
+    static constexpr int k_cloudsCount = 3;
     std::vector<CloudData> m_clouds;
 };
