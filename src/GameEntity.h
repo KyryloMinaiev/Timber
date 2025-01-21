@@ -25,6 +25,8 @@ public:
     sf::Sprite* getEntitySprite() const;
     void setScale(sf::Vector2f scale) const;
     void setDepth(float depth);
+    void setOrigin(sf::Vector2f origin) const;
+    void setRotation(sf::Angle angle) const;
 
     static bool compare(const std::unique_ptr<GameEntity>& first, const std::unique_ptr<GameEntity>& second);
 private:

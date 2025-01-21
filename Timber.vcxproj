@@ -173,6 +173,7 @@
       <AdditionalIncludeDirectories>D:\Projects\C++\Timber\external\include;</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="src\GameSystems\BranchesSystem.cpp" />
     <ClCompile Include="src\GameSystems\CloudsSystem.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
       <AssemblerListingLocation>x64\Release\</AssemblerListingLocation>
@@ -334,6 +335,7 @@
     <ClInclude Include="src\GameEntity.h" />
     <ClInclude Include="src\GameSystems\BackgroundSystem.h" />
     <ClInclude Include="src\GameSystems\BeeSystem.h" />
+    <ClInclude Include="src\GameSystems\BranchesSystem.h" />
     <ClInclude Include="src\GameSystems\CloudsSystem.h" />
     <ClInclude Include="src\GameSystems\GameSystem.h" />
     <ClInclude Include="src\GameSystems\PlayerSystem.h" />

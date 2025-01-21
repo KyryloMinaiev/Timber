@@ -1,4 +1,5 @@
 ﻿#include "Game.h"
+
 #include <SFML\Graphics.hpp>
 
 #include "GameSystems/BackgroundSystem.h"
@@ -9,6 +10,7 @@
 #include "GameSystems/CloudsSystem.h"
 #include "EventManager.h"
 #include "InputSystem.h"
+#include "GameSystems/BranchesSystem.h"
 #include "GameSystems/PlayerSystem.h"
 
 using namespace sf;
@@ -23,6 +25,7 @@ Game::Game(RenderWindow* window): m_window(window)
     m_gameSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_gameSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_gameSystems.push_back(std::make_unique<PlayerSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_gameSystems.push_back(std::make_unique<BranchesSystem>(m_entitySystem.get(), m_eventManager.get()));
 }
 
 Game::~Game() = default;

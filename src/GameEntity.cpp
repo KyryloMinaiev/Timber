@@ -60,6 +60,16 @@ void GameEntity::setDepth(float depth)
     m_depth = depth;
 }
 
+void GameEntity::setOrigin(sf::Vector2f origin) const
+{
+    m_entitySprite->setOrigin(origin);
+}
+
+void GameEntity::setRotation(sf::Angle angle) const
+{
+    m_entitySprite->setRotation(angle);
+}
+
 bool GameEntity::compare(const std::unique_ptr<GameEntity>& first, const std::unique_ptr<GameEntity>& second)
 {
     return first->m_depth < second->m_depth;
