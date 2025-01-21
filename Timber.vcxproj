@@ -23,8 +23,11 @@
     <ClCompile Include="src\BeeSystem.cpp" />
     <ClCompile Include="src\CloudsSystem.cpp" />
     <ClCompile Include="src\EntitySystem.cpp" />
+    <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameEntity.cpp" />
+    <ClCompile Include="src\InputSystem.cpp" />
+    <ClCompile Include="src\PlayerSystem.cpp" />
     <ClCompile Include="src\Screen.cpp" />
     <ClCompile Include="src\Timber.cpp" />
   </ItemGroup>
@@ -33,9 +36,12 @@
     <ClInclude Include="src\BeeSystem.h" />
     <ClInclude Include="src\CloudsSystem.h" />
     <ClInclude Include="src\EntitySystem.h" />
+    <ClInclude Include="src\EventManager.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameEntity.h" />
     <ClInclude Include="src\GameSystem.h" />
+    <ClInclude Include="src\InputSystem.h" />
+    <ClInclude Include="src\PlayerSystem.h" />
     <ClInclude Include="src\Screen.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -13,7 +13,7 @@ enum class EventType
 class IEventListener
 {
 public:
-    virtual ~IEventListener() = 0;
+    virtual ~IEventListener() = default;
     virtual void onEvent(EventType event) = 0;
 };
 
