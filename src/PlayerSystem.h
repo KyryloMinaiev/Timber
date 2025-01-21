@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <SFML/System/Vector2.hpp>
+#include "Sides.h"
 
 #include "EventManager.h"
 #include "GameSystem.h"
@@ -14,7 +15,6 @@ public:
     void update(sf::Time& dt) override;
     void onEvent(EventType event) override;
 private:
-    enum class side {LEFT = 0, RIGHT = 1, NONE = 2};
     void onGameStart();
     void onGameEnd() const;
 
