@@ -16,6 +16,7 @@ InputSystem::~InputSystem() = default;
 void InputSystem::updateInput()
 {
     m_buttonsUp.clear();
+    moveDownButtonsToPressed();
     
     while (const std::optional event = m_window->pollEvent())
     {
@@ -61,13 +62,23 @@ void InputSystem::checkPressedButton(sf::Keyboard::Key key)
     if(isAlreadyDown && !isAlreadyPressed)                                 
     {                                                                      
         m_buttonsDown.erase(key);                             
-        m_buttonsPressed.insert(key);                         
+        m_buttonsPressed.insert(key);
     }                                                                      
                                                                        
     if(!isAlreadyPressed && !isAlreadyDown)                                
-    {                                                                      
+    {
         m_buttonsDown.insert(key);                            
     }                                                                      
+}
+
+void InputSystem::moveDownButtonsToPressed()
+{
+    for (auto buttonDown : m_buttonsDown)
+    {
+        m_buttonsPressed.insert(buttonDown);
+    }
+
+    m_buttonsDown.clear();
 }
 
 void InputSystem::checkReleasedButton(sf::Keyboard::Key key)

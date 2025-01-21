@@ -23,6 +23,7 @@ private:
     static bool checkInSet(sf::Keyboard::Key key, std::set<sf::Keyboard::Key> set);
     
     void checkPressedButton(sf::Keyboard::Key key);
+    void moveDownButtonsToPressed();
     void checkReleasedButton(sf::Keyboard::Key key);
 
     static InputSystem* s_instance;
