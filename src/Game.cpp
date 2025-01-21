@@ -8,6 +8,8 @@
 #include "BeeSystem.h"
 #include "CloudsSystem.h"
 #include "EventManager.h"
+#include "InputSystem.h"
+#include "PlayerSystem.h"
 
 using namespace sf;
 
@@ -16,6 +18,7 @@ Game::Game(RenderWindow* window): m_window(window)
     m_screen = std::make_unique<Screen>(window);
     m_entitySystem = std::make_unique<EntitySystem>(window);
     m_eventManager = std::make_unique<EventManager>();
+    m_inputSystem = std::make_unique<InputSystem>(window);
     m_gameSystems.push_back(std::make_unique<BackgroundSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_gameSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_gameSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get(), m_eventManager.get()));
@@ -91,6 +94,7 @@ void Game::Run()
 
     while (m_window->isOpen())
     {
+        m_inputSystem->updateInput();
         // while (const std::optional event = m_window->pollEvent())
         // {
         //     if (event->is<Event::KeyPressed>() && !paused)
@@ -101,13 +105,15 @@ void Game::Run()
         //     }
         // }
 
-        if (Keyboard::isKeyPressed(Keyboard::Key::Escape))
+        if (InputSystem::isKeyDown(Keyboard::Key::Escape))
         {
             m_window->close();
         }
 
-        // if (Keyboard::isKeyPressed(Keyboard::Key::Enter))
-        // {
+        if (InputSystem::isKeyDown(Keyboard::Key::Enter))
+        {
+            m_eventManager->invokeEvent(EventType::GameStarted);
+            
         //     paused = false;
         //     timeRemaining = 6.0f;
         //     score = 0;
@@ -121,7 +127,7 @@ void Game::Run()
         //     player.setPosition(Vector2f(580, 720));
         //
         //     acceptInput = true;
-        // }
+        }
 
         // if (acceptInput)
         // {
