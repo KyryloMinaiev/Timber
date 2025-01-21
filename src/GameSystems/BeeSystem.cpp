@@ -1,7 +1,7 @@
 ﻿#include "BeeSystem.h"
 
-#include "Screen.h"
-#include "EntitySystem.h"
+#include "../Screen.h"
+#include "../EntitySystem.h"
 
 BeeSystem::BeeSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager),
                                                                               m_beeOusideScreen(true),

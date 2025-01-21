@@ -1,8 +1,8 @@
 ﻿#include "PlayerSystem.h"
 
-#include "EntitySystem.h"
-#include "InputSystem.h"
-#include "Screen.h"
+#include "../EntitySystem.h"
+#include "../InputSystem.h"
+#include "../Screen.h"
 
 PlayerSystem::PlayerSystem(EntitySystem* entitySystem, EventManager* eventManager) : GameSystem(entitySystem, eventManager), m_playerSide(side::NONE)
 {

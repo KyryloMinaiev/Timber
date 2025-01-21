@@ -1,7 +1,7 @@
 ﻿#include "CloudsSystem.h"
 
-#include "EntitySystem.h"
-#include "Screen.h"
+#include "../EntitySystem.h"
+#include "../Screen.h"
 
 CloudsSystem::CloudsSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager)
 {

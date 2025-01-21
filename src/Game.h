@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <memory>
-#include "GameSystem.h"
+#include "GameSystems/GameSystem.h"
 
 namespace sf
 {

@@ -1,8 +1,8 @@
 ﻿#include <SFML/Graphics/Sprite.hpp>
 
 #include "BackgroundSystem.h"
-#include "EntitySystem.h"
-#include "Screen.h"
+#include "../EntitySystem.h"
+#include "../Screen.h"
 
 BackgroundSystem::BackgroundSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager)
 {

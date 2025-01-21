@@ -1,15 +1,15 @@
 ﻿#include "Game.h"
 #include <SFML\Graphics.hpp>
 
-#include "BackgroundSystem.h"
+#include "GameSystems/BackgroundSystem.h"
 #include "EntitySystem.h"
 #include "Screen.h"
 
-#include "BeeSystem.h"
-#include "CloudsSystem.h"
+#include "GameSystems/BeeSystem.h"
+#include "GameSystems/CloudsSystem.h"
 #include "EventManager.h"
 #include "InputSystem.h"
-#include "PlayerSystem.h"
+#include "GameSystems/PlayerSystem.h"
 
 using namespace sf;
 

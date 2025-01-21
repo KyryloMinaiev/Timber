@@ -2,7 +2,7 @@
 #include <SFML/System/Vector2.hpp>
 #include "Sides.h"
 
-#include "EventManager.h"
+#include "../EventManager.h"
 #include "GameSystem.h"
 
 class GameEntity;
