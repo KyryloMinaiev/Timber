@@ -65,7 +65,7 @@ void UIController::updateTimeBar(float secondsLeft) const
     m_timeBar->setSize(sf::Vector2f(secondsLeft * m_scaledTimeBarSize.x, m_scaledTimeBarSize.y));
 }
 
-void UIController::updateScore(int score)
+void UIController::updateScore(int score) const
 {
     std::stringstream ss;
     ss << "Score = " << score;

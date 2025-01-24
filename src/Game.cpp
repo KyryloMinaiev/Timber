@@ -49,33 +49,7 @@ void Game::Run()
     // float logSpeedX = 1000;
     // float logSpeedY = -1500;
     //
-    // Font font("res/fonts/KOMIKAP_.ttf");
-    // Text messageText(font, "Press Enter to start!", 75);
-    // Text scoreText(font, "Score = 0", 100);
-    //
-    // messageText.setFillColor(Color::White);
-    // scoreText.setFillColor(Color::White);
-    //
-    // FloatRect textRect = messageText.getLocalBounds();
-    // messageText.setOrigin(Vector2f(textRect.position.x +
-    //                                textRect.size.x / 2.0f,
-    //                                textRect.position.y +
-    //                                textRect.size.y / 2.0f));
-    // messageText.setPosition(Vector2f(1920 / 2.0f, 1080 / 2.0f));
-    // scoreText.setPosition(Vector2f(20, 20));
-    //
     Clock clock;
-    //
-    // float timeBarStartWidth = 400;
-    // float timeBarHeight = 80;
-    // RectangleShape timeBar(Vector2f(400, 80));
-    // timeBar.setFillColor(Color::Red);
-    // timeBar.setPosition(Vector2f((1920 / 2) - timeBarStartWidth / 2, 980));
-    //
-    // Time gameTimeTotal;
-    // float timeRemaining = 6.0f;
-    // float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
-    //
     while (m_window->isOpen())
     {
         m_inputSystem->updateInput();
@@ -121,26 +95,6 @@ void Game::Run()
         // }
         //
         Time dt = clock.restart();
-        //
-        //     timeBar.setSize(Vector2f(timeBarWidthPerSecond * timeRemaining, timeBarHeight));
-        //     if (timeRemaining <= 0.0f)
-        //     {
-        //         paused = true;
-        //         messageText.setString("Out of time!");
-        //
-        //         FloatRect textRect = messageText.getLocalBounds();
-        //         messageText.setOrigin(Vector2f(textRect.position.x +
-        //                                        textRect.size.x / 2.0f,
-        //                                        textRect.position.y +
-        //                                        textRect.size.y / 2.0f));
-        //         messageText.setPosition(Vector2f(1920 / 2.0f, 1080 / 2.0f));
-        //     }
-        //
-        //
-        //     std::stringstream ss;
-        //     ss << "Score = " << score;
-        //     scoreText.setString(ss.str());
-        //
         //     if (logActive)
         //     {
         //         log.setPosition(
@@ -177,15 +131,6 @@ void Game::Run()
         m_window->clear();
         m_entitySystem->drawEntities();
         m_uiController->drawUI();
-
-        // m_window->draw(scoreText);
-        // m_window->draw(timeBar);
-
-        // if (paused)
-        // {
-        //     window.draw(messageText);
-        // }
-
         m_window->display();
     }
 }

@@ -26,7 +26,7 @@ public:
     void onEvent(EventType event) override;
     void drawUI() const;
     void updateTimeBar(float secondsLeft) const;
-    void updateScore(int score);
+    void updateScore(int score) const;
     
 private:
     void setupTimeBar(sf::Vector2f screenScale, sf::Vector2u screenSize);
