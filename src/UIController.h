@@ -12,6 +12,7 @@ namespace sf
     class Text;
     class RectangleShape;
     class Drawable;
+    class Font;
 }
 
 class UIController : public IEventListener
@@ -33,7 +34,8 @@ private:
     void onGameStart();
     void onTimeEnded();
     void onPlayerDead();
-    void onGameEnd(std::string messageText);
+    void onGameEnd(const std::string& messageText);
+    void changeMessageText(const std::string& messageText) const;
 
     static constexpr int k_timeBarStartWidth = 400;
     static constexpr int k_timeBarStartHeight = 80;
@@ -43,6 +45,7 @@ private:
     
     sf::RenderWindow* m_window;
     EventManager* m_eventManager;
+    std::unique_ptr<sf::Font> m_mainFont;
     std::unique_ptr<sf::Text> m_messageText;
     std::unique_ptr<sf::Text> m_scoreText;
     std::unique_ptr<sf::RectangleShape> m_timeBar;
