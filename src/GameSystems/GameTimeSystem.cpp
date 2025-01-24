@@ -5,9 +5,13 @@
 GameTimeSystem::GameTimeSystem(EntitySystem* entitySystem, EventManager* eventManager) :
     GameSystem(entitySystem, eventManager), m_currentTime(0), m_currentScore(0)
 {
+    eventManager->addEventListener(this);
 }
 
-GameTimeSystem::~GameTimeSystem() = default;
+GameTimeSystem::~GameTimeSystem() 
+{
+    p_eventManager->removeEventListener(this);
+}
 
 void GameTimeSystem::update(sf::Time& dt)
 {
@@ -28,6 +32,7 @@ void GameTimeSystem::onEvent(EventType event)
     }
 }
 
+
 void GameTimeSystem::onGameStart()
 {
     m_currentTime = k_startTime;
@@ -39,14 +44,15 @@ void GameTimeSystem::onPlayerMoved()
     m_currentScore++;
     m_currentTime += (2 / m_currentScore) + 0.15f;
     m_currentTime = std::min(m_currentTime, k_startTime);
+    UIController::getInstance()->updateScore(static_cast<int>(m_currentScore));
 }
 
 void GameTimeSystem::checkGameTime() const
 {
+    UIController::getInstance()->updateTimeBar(m_currentTime / k_startTime);
+
     if (m_currentTime <= 0)
     {
         p_eventManager->invokeEvent(EventType::TimeEnded);
     }
-
-    UIController::getInstance()->updateTimeBar(m_currentTime / k_startTime);
 }
