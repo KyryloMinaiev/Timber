@@ -10,37 +10,32 @@
 #include "GameSystems/CloudsSystem.h"
 #include "EventManager.h"
 #include "InputSystem.h"
+#include "UIController.h"
 #include "GameSystems/BranchesSystem.h"
+#include "GameSystems/GameTimeSystem.h"
 #include "GameSystems/PlayerSystem.h"
 
 using namespace sf;
 
-Game::Game(RenderWindow* window): m_window(window)
+Game::Game(RenderWindow* window): m_window(window), m_gameStarted(false)
 {
     m_screen = std::make_unique<Screen>(window);
     m_entitySystem = std::make_unique<EntitySystem>(window);
     m_eventManager = std::make_unique<EventManager>();
     m_inputSystem = std::make_unique<InputSystem>(window);
-    m_gameSystems.push_back(std::make_unique<BackgroundSystem>(m_entitySystem.get(), m_eventManager.get()));
-    m_gameSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get(), m_eventManager.get()));
-    m_gameSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get(), m_eventManager.get()));
-    m_gameSystems.push_back(std::make_unique<PlayerSystem>(m_entitySystem.get(), m_eventManager.get()));
-    m_gameSystems.push_back(std::make_unique<BranchesSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_uiController = std::make_unique<UIController>(window, m_eventManager.get());
+    m_alwaysEnabledSystems.push_back(std::make_unique<BackgroundSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_alwaysEnabledSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_alwaysEnabledSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_gameplaySystems.push_back(std::make_unique<PlayerSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_gameplaySystems.push_back(std::make_unique<BranchesSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_gameplaySystems.push_back(std::make_unique<GameTimeSystem>(m_entitySystem.get(), m_eventManager.get()));
 }
 
 Game::~Game() = default;
 
 void Game::Run()
 {
-    //
-    // GameEntity player("res/graphics/player.png");
-    // player.setPosition(Vector2f(580, 720));
-    //
-    // side playerSide = side::LEFT;
-    //
-    // GameEntity deadPlayer("res/graphics/rip.png");
-    // deadPlayer.setPosition(Vector2f(600, 860));
-    //
     // GameEntity axe("res/graphics/axe.png");
     // axe.setPosition(Vector2f(700, 830));
     //
@@ -53,9 +48,6 @@ void Game::Run()
     // bool logActive = false;
     // float logSpeedX = 1000;
     // float logSpeedY = -1500;
-    //
-    //
-    // int score = 0;
     //
     // Font font("res/fonts/KOMIKAP_.ttf");
     // Text messageText(font, "Press Enter to start!", 75);
@@ -73,7 +65,6 @@ void Game::Run()
     // scoreText.setPosition(Vector2f(20, 20));
     //
     Clock clock;
-    // bool paused = true;
     //
     // float timeBarStartWidth = 400;
     // float timeBarHeight = 80;
@@ -85,17 +76,6 @@ void Game::Run()
     // float timeRemaining = 6.0f;
     // float timeBarWidthPerSecond = timeBarStartWidth / timeRemaining;
     //
-    // Texture textureBranch("res/graphics/branch.png");
-    // for (int i = 0; i < NUM_BRANCHES; i++)
-    // {
-    //     branches.push_back(Sprite(textureBranch));
-    //     branches[i].setPosition(Vector2f(-2000, -2000));
-    //     branches[i].setOrigin(Vector2f(220, 20));
-    //     branchPositions.push_back(side::NONE);
-    // }
-
-    bool acceptInput = false;
-
     while (m_window->isOpen())
     {
         m_inputSystem->updateInput();
@@ -114,69 +94,34 @@ void Game::Run()
             m_window->close();
         }
 
-        if (InputSystem::isKeyDown(Keyboard::Key::Enter))
+        if (InputSystem::isKeyDown(Keyboard::Key::Enter) && !m_gameStarted)
         {
             m_eventManager->invokeEvent(EventType::GameStarted);
-            
-        //     paused = false;
-        //     timeRemaining = 6.0f;
-        //     score = 0;
-        //
-        //     for (int i = 0; i < NUM_BRANCHES; i++)
-        //     {
-        //         branchPositions[i] = side::NONE;
-        //     }
-        //
-        //     deadPlayer.setPosition(Vector2f(675, 2000));
-        //     player.setPosition(Vector2f(580, 720));
-        //
-        //     acceptInput = true;
+            m_gameStarted = true;
         }
-
         // if (acceptInput)
         // {
         //     if (Keyboard::isKeyPressed(Keyboard::Key::Right))
         //     {
-        //         playerSide = side::RIGHT;
-        //         score++;
-        //
-        //         timeRemaining += (2 / score) + 0.15f;
         //         axe.setPosition(Vector2f(AXE_POSITION_RIGHT, axe.getPosition().y));
-        //         player.setPosition(Vector2f(1200, 720));
-        //
-        //         updateBranches(score);
         //
         //         log.setPosition(Vector2f(810, 720));
         //         logSpeedX = -5000;
         //         logActive = true;
-        //
-        //         acceptInput = false;
         //     }
         //
         //     if (Keyboard::isKeyPressed(Keyboard::Key::Left))
         //     {
-        //         playerSide = side::LEFT;
-        //         score++;
-        //
-        //         timeRemaining += (2 / score) + 0.15f;
         //         axe.setPosition(Vector2f(AXE_POSITION_LEFT, axe.getPosition().y));
-        //         player.setPosition(Vector2f(580, 720));
-        //
-        //         updateBranches(score);
         //
         //         log.setPosition(Vector2f(810, 720));
         //         logSpeedX = 5000;
         //         logActive = true;
-        //
-        //         acceptInput = false;
         //     }
         // }
         //
-        // if (!paused)
-        // {
         Time dt = clock.restart();
         //
-        //     timeRemaining -= dt.asSeconds();
         //     timeBar.setSize(Vector2f(timeBarWidthPerSecond * timeRemaining, timeBarHeight));
         //     if (timeRemaining <= 0.0f)
         //     {
@@ -195,25 +140,6 @@ void Game::Run()
         //     std::stringstream ss;
         //     ss << "Score = " << score;
         //     scoreText.setString(ss.str());
-        //
-        //     for (int i = 0; i < NUM_BRANCHES; i++)
-        //     {
-        //         float height = i * 150;
-        //         if (branchPositions[i] == side::LEFT)
-        //         {
-        //             branches[i].setPosition(Vector2f(610, height));
-        //             branches[i].setRotation(degrees(180));
-        //         }
-        //         else if (branchPositions[i] == side::RIGHT)
-        //         {
-        //             branches[i].setPosition(Vector2f(1330, height));
-        //             branches[i].setRotation(Angle::Zero);
-        //         }
-        //         else
-        //         {
-        //             branches[i].setPosition(Vector2f(3000, height));
-        //         }
-        //     }
         //
         //     if (logActive)
         //     {
@@ -235,23 +161,22 @@ void Game::Run()
         //     }
         // }
 
-        for (auto& gameSystem : m_gameSystems)
+        for (auto& gameSystem : m_alwaysEnabledSystems)
         {
             gameSystem->update(dt);
         }
 
+        if(m_gameStarted)
+        {
+            for (auto& gameSystem : m_gameplaySystems)
+            {
+                gameSystem->update(dt);
+            }
+        }
+
         m_window->clear();
         m_entitySystem->drawEntities();
-        //
-        // for (int i = 0; i < NUM_BRANCHES; i++)
-        // {
-        //     window.draw(branches[i]);
-        // }
-        //
-        // player.draw(window);
-        // axe.draw(window);
-        // log.draw(window);
-        // deadPlayer.draw(window);
+        m_uiController->drawUI();
 
         // m_window->draw(scoreText);
         // m_window->draw(timeBar);
@@ -264,26 +189,3 @@ void Game::Run()
         m_window->display();
     }
 }
-
-// void Game::updateBranches(int seed)
-// {
-//     for (int i = NUM_BRANCHES - 1; i > 0; i--)
-//     {
-//         branchPositions[i] = branchPositions[i - 1];
-//     }
-//
-//     srand((int)time(0) + seed);
-//     int r = (rand() % 5);
-//     switch (r)
-//     {
-//     case 0:
-//         branchPositions[0] = side::LEFT;
-//         break;
-//     case 1:
-//         branchPositions[0] = side::RIGHT;
-//         break;
-//     default:
-//         branchPositions[0] = side::NONE;
-//         break;
-//     }
-// }

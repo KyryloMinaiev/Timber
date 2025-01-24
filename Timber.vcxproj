@@ -249,6 +249,7 @@
       <AdditionalIncludeDirectories>D:\Projects\C++\Timber\external\include;</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="src\GameSystems\GameTimeSystem.cpp" />
     <ClCompile Include="src\GameSystems\PlayerSystem.cpp">
       <AssemblerOutput>NoListing</AssemblerOutput>
       <AssemblerListingLocation>x64\Release\</AssemblerListingLocation>
@@ -327,6 +328,7 @@
     <ClCompile Include="src\InputSystem.cpp" />
     <ClCompile Include="src\Screen.cpp" />
     <ClCompile Include="src\Timber.cpp" />
+    <ClCompile Include="src\UIController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\EntitySystem.h" />
@@ -338,10 +340,12 @@
     <ClInclude Include="src\GameSystems\BranchesSystem.h" />
     <ClInclude Include="src\GameSystems\CloudsSystem.h" />
     <ClInclude Include="src\GameSystems\GameSystem.h" />
+    <ClInclude Include="src\GameSystems\GameTimeSystem.h" />
     <ClInclude Include="src\GameSystems\PlayerSystem.h" />
     <ClInclude Include="src\GameSystems\Sides.h" />
     <ClInclude Include="src\InputSystem.h" />
     <ClInclude Include="src\Screen.h" />
+    <ClInclude Include="src\UIController.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
