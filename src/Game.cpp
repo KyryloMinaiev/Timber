@@ -36,12 +36,6 @@ Game::~Game() = default;
 
 void Game::Run()
 {
-    // GameEntity axe("res/graphics/axe.png");
-    // axe.setPosition(Vector2f(700, 830));
-    //
-    // const float AXE_POSITION_LEFT = 700;
-    // const float AXE_POSITION_RIGHT = 1075;
-    //
     // GameEntity log("res/graphics/log.png");
     // log.setPosition(Vector2f(810, 720));
     //
@@ -77,7 +71,6 @@ void Game::Run()
         // {
         //     if (Keyboard::isKeyPressed(Keyboard::Key::Right))
         //     {
-        //         axe.setPosition(Vector2f(AXE_POSITION_RIGHT, axe.getPosition().y));
         //
         //         log.setPosition(Vector2f(810, 720));
         //         logSpeedX = -5000;
@@ -86,7 +79,6 @@ void Game::Run()
         //
         //     if (Keyboard::isKeyPressed(Keyboard::Key::Left))
         //     {
-        //         axe.setPosition(Vector2f(AXE_POSITION_LEFT, axe.getPosition().y));
         //
         //         log.setPosition(Vector2f(810, 720));
         //         logSpeedX = 5000;

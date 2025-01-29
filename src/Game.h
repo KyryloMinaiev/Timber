@@ -23,17 +23,6 @@ public:
     
     void Run();
 private:
-    // const float TREE_HORIZONTAL_POSITION = 810;
-    // const float TREE_VERTICAL_POSITION = 0;
-    //
-    //
-    // void updateBranches(int seed);
-    //
-    // const int NUM_BRANCHES = 6;
-    // //std::vector<Sprite> branches;
-    // enum class side {LEFT, RIGHT, NONE};
-    // std::vector<side> branchPositions;
-
     std::unique_ptr<EntitySystem> m_entitySystem;
     std::unique_ptr<EventManager> m_eventManager;
     std::unique_ptr<InputSystem> m_inputSystem;
