@@ -10,6 +10,7 @@
 #include "GameSystems/CloudsSystem.h"
 #include "EventManager.h"
 #include "InputSystem.h"
+#include "SoundController.h"
 #include "UIController.h"
 #include "GameSystems/BranchesSystem.h"
 #include "GameSystems/GameTimeSystem.h"
@@ -25,6 +26,7 @@ Game::Game(RenderWindow* window): m_window(window), m_gameStarted(false)
     m_eventManager = std::make_unique<EventManager>();
     m_inputSystem = std::make_unique<InputSystem>(window);
     m_uiController = std::make_unique<UIController>(window, m_eventManager.get());
+    m_soundController = std::make_unique<SoundController>(m_eventManager.get());
     m_alwaysEnabledSystems.push_back(std::make_unique<BackgroundSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_alwaysEnabledSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_alwaysEnabledSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get(), m_eventManager.get()));
