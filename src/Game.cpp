@@ -32,9 +32,23 @@ Game::Game(RenderWindow* window): m_window(window), m_gameStarted(false)
     m_gameplaySystems.push_back(std::make_unique<BranchesSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_gameplaySystems.push_back(std::make_unique<GameTimeSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_gameplaySystems.push_back(std::make_unique<LogSystem>(m_entitySystem.get(), m_eventManager.get()));
+
+    m_eventManager->addEventListener(this);
 }
 
-Game::~Game() = default;
+Game::~Game()
+{
+    m_eventManager->removeEventListener(this);
+}
+
+void Game::onEvent(EventType event)
+{
+    if(event == EventType::PlayerCollision || event == EventType::TimeEnded)
+    {
+        m_gameStarted = false;
+        m_eventManager->invokeEvent(EventType::GameEnded);
+    }
+}
 
 void Game::Run()
 {

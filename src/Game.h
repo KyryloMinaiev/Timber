@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <memory>
+
+#include "EventManager.h"
 #include "GameSystems/GameSystem.h"
 
 namespace sf
@@ -15,12 +17,13 @@ class EventManager;
 class InputSystem;
 class UIController;
 
-class Game
+class Game : public IEventListener
 {
 public:
     Game(sf::RenderWindow* window);
-    ~Game();
-    
+    ~Game() override;
+
+    void onEvent(EventType event) override;
     void Run();
 private:
     std::unique_ptr<EntitySystem> m_entitySystem;
