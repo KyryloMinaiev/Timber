@@ -16,6 +16,7 @@ class Screen;
 class EventManager;
 class InputSystem;
 class UIController;
+class SoundController;
 
 class Game : public IEventListener
 {
@@ -30,6 +31,7 @@ private:
     std::unique_ptr<EventManager> m_eventManager;
     std::unique_ptr<InputSystem> m_inputSystem;
     std::unique_ptr<UIController> m_uiController;
+    std::unique_ptr<SoundController> m_soundController;
     std::vector<std::unique_ptr<GameSystem>> m_alwaysEnabledSystems;
     std::vector<std::unique_ptr<GameSystem>> m_gameplaySystems;
     sf::RenderWindow* m_window;

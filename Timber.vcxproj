@@ -32,6 +32,7 @@
     <ClCompile Include="src\GameSystems\PlayerSystem.cpp" />
     <ClCompile Include="src\InputSystem.cpp" />
     <ClCompile Include="src\Screen.cpp" />
+    <ClCompile Include="src\SoundController.cpp" />
     <ClCompile Include="src\Timber.cpp" />
     <ClCompile Include="src\UIController.cpp" />
   </ItemGroup>
@@ -51,6 +52,7 @@
     <ClInclude Include="src\GameSystems\Sides.h" />
     <ClInclude Include="src\InputSystem.h" />
     <ClInclude Include="src\Screen.h" />
+    <ClInclude Include="src\SoundController.h" />
     <ClInclude Include="src\UIController.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
