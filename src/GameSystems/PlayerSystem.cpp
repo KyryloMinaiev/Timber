@@ -44,9 +44,9 @@ void PlayerSystem::onEvent(EventType event)
         onGameStart();
     }
 
-    if(event == EventType::GameEnded)
+    if(event == EventType::PlayerCollision)
     {
-        onGameEnd();
+        onPlayerCollision();
     }
 }
 
@@ -58,12 +58,18 @@ void PlayerSystem::onGameStart()
     movePlayer(side::LEFT, false);
 }
 
-void PlayerSystem::onGameEnd() const
+void PlayerSystem::onPlayerCollision() const
 {
     m_playerAlive->setActive(false);
     m_deadPlayer->setActive(true);
     m_axe->setActive(false);
     m_deadPlayer->setPosition(getPlayerPosition(m_playerSide));
+}
+
+void PlayerSystem::onTimeEnded() const
+{
+    m_playerAlive->setActive(false);
+    m_axe->setActive(false);
 }
 
 void PlayerSystem::movePlayer(side side, bool pushEvent)

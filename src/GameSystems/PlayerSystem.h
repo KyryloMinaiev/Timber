@@ -16,7 +16,8 @@ public:
     void onEvent(EventType event) override;
 private:
     void onGameStart();
-    void onGameEnd() const;
+    void onPlayerCollision() const;
+    void onTimeEnded() const;
 
     void movePlayer(side side, bool pushEvent = true);
     sf::Vector2f getPlayerPosition(side side) const;
