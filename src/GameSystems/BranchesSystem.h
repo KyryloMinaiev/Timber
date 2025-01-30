@@ -21,6 +21,7 @@ private:
     void updateBranches();
     void placeBranches() const;
     void disableBranches() const;
+    void clearBranchesPositions();
 
     static constexpr int k_branchesCount = 6;
     static constexpr float k_distanceBetweenBranches = 150;

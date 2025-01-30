@@ -49,6 +49,7 @@ void BranchesSystem::onEvent(EventType event)
 
 void BranchesSystem::onGameStart()
 {
+    clearBranchesPositions();
     updateBranches();
 }
 
@@ -116,5 +117,13 @@ void BranchesSystem::disableBranches() const
     for (auto branch : m_branches)
     {
         branch->setActive(false);
+    }
+}
+
+void BranchesSystem::clearBranchesPositions()
+{
+    for (auto& branchPosition : m_branchPositions)
+    {
+        branchPosition = side::NONE;
     }
 }
