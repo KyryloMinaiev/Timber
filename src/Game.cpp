@@ -13,6 +13,7 @@
 #include "UIController.h"
 #include "GameSystems/BranchesSystem.h"
 #include "GameSystems/GameTimeSystem.h"
+#include "GameSystems/LogSystem.h"
 #include "GameSystems/PlayerSystem.h"
 
 using namespace sf;
@@ -30,6 +31,7 @@ Game::Game(RenderWindow* window): m_window(window), m_gameStarted(false)
     m_gameplaySystems.push_back(std::make_unique<PlayerSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_gameplaySystems.push_back(std::make_unique<BranchesSystem>(m_entitySystem.get(), m_eventManager.get()));
     m_gameplaySystems.push_back(std::make_unique<GameTimeSystem>(m_entitySystem.get(), m_eventManager.get()));
+    m_gameplaySystems.push_back(std::make_unique<LogSystem>(m_entitySystem.get(), m_eventManager.get()));
 }
 
 Game::~Game() = default;
