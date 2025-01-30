@@ -19,7 +19,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\EntitySystem.cpp" />
+    <ClCompile Include="src\EventManager.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameEntity.cpp" />
+    <ClCompile Include="src\GameSystems\BackgroundSystem.cpp" />
+    <ClCompile Include="src\GameSystems\BeeSystem.cpp" />
+    <ClCompile Include="src\GameSystems\BranchesSystem.cpp" />
+    <ClCompile Include="src\GameSystems\CloudsSystem.cpp" />
+    <ClCompile Include="src\GameSystems\GameTimeSystem.cpp" />
+    <ClCompile Include="src\GameSystems\LogSystem.cpp" />
+    <ClCompile Include="src\GameSystems\PlayerSystem.cpp" />
+    <ClCompile Include="src\InputSystem.cpp" />
+    <ClCompile Include="src\Screen.cpp" />
     <ClCompile Include="src\Timber.cpp" />
+    <ClCompile Include="src\UIController.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\EntitySystem.h" />
+    <ClInclude Include="src\EventManager.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameEntity.h" />
+    <ClInclude Include="src\GameSystems\BackgroundSystem.h" />
+    <ClInclude Include="src\GameSystems\BeeSystem.h" />
+    <ClInclude Include="src\GameSystems\BranchesSystem.h" />
+    <ClInclude Include="src\GameSystems\CloudsSystem.h" />
+    <ClInclude Include="src\GameSystems\GameSystem.h" />
+    <ClInclude Include="src\GameSystems\GameTimeSystem.h" />
+    <ClInclude Include="src\GameSystems\LogSystem.h" />
+    <ClInclude Include="src\GameSystems\PlayerSystem.h" />
+    <ClInclude Include="src\GameSystems\Sides.h" />
+    <ClInclude Include="src\InputSystem.h" />
+    <ClInclude Include="src\Screen.h" />
+    <ClInclude Include="src\UIController.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -77,7 +109,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Projects\C++\Timber\external\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -113,7 +145,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>D:\Projects\C++\Timber\external\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
