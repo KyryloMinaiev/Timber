@@ -49,6 +49,7 @@ void LogSystem::onEvent(EventType event)
     if(event == EventType::GameStarted)
     {
         m_log->setActive(true);
+        m_log->setPosition(m_startLogPosition);
     }
     
     if(event == EventType::PlayerMoved)
@@ -59,6 +60,7 @@ void LogSystem::onEvent(EventType event)
     if(event == EventType::GameEnded)
     {
         m_log->setActive(false);
+        m_logMoving = false;
     }
 }
 
