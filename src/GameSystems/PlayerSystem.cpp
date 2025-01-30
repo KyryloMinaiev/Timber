@@ -55,7 +55,7 @@ void PlayerSystem::onGameStart()
     m_playerAlive->setActive(true);
     m_deadPlayer->setActive(false);
     m_axe->setActive(true);
-    movePlayer(side::LEFT);
+    movePlayer(side::LEFT, false);
 }
 
 void PlayerSystem::onGameEnd() const
