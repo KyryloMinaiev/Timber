@@ -38,27 +38,10 @@ Game::~Game() = default;
 
 void Game::Run()
 {
-    // GameEntity log("res/graphics/log.png");
-    // log.setPosition(Vector2f(810, 720));
-    //
-    // bool logActive = false;
-    // float logSpeedX = 1000;
-    // float logSpeedY = -1500;
-    //
     Clock clock;
     while (m_window->isOpen())
     {
         m_inputSystem->updateInput();
-        // while (const std::optional event = m_window->pollEvent())
-        // {
-        //     if (event->is<Event::KeyPressed>() && !paused)
-        //     {
-        //         acceptInput = true;
-        //
-        //         axe.setPosition(Vector2f(2000, axe.getPosition().y));
-        //     }
-        // }
-
         if (InputSystem::isKeyDown(Keyboard::Key::Escape))
         {
             m_window->close();
@@ -69,46 +52,8 @@ void Game::Run()
             m_eventManager->invokeEvent(EventType::GameStarted);
             m_gameStarted = true;
         }
-        // if (acceptInput)
-        // {
-        //     if (Keyboard::isKeyPressed(Keyboard::Key::Right))
-        //     {
-        //
-        //         log.setPosition(Vector2f(810, 720));
-        //         logSpeedX = -5000;
-        //         logActive = true;
-        //     }
-        //
-        //     if (Keyboard::isKeyPressed(Keyboard::Key::Left))
-        //     {
-        //
-        //         log.setPosition(Vector2f(810, 720));
-        //         logSpeedX = 5000;
-        //         logActive = true;
-        //     }
-        // }
-        //
+        
         Time dt = clock.restart();
-        //     if (logActive)
-        //     {
-        //         log.setPosition(
-        //             Vector2f(log.getPosition().x +
-        //                      (logSpeedX * dt.asSeconds()),
-        //
-        //                      log.getPosition().y +
-        //                      (logSpeedY * dt.asSeconds())));
-        //
-        //         // Has the log reached the right hand edge?
-        //         if (log.getPosition().x < -100 ||
-        //             log.getPosition().x > 2000)
-        //         {
-        //             // Set it up ready to be a whole new log next frame
-        //             logActive = false;
-        //             log.setPosition(Vector2f(810, 720));
-        //         }
-        //     }
-        // }
-
         for (auto& gameSystem : m_alwaysEnabledSystems)
         {
             gameSystem->update(dt);
