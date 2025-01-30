@@ -50,6 +50,11 @@ void PlayerSystem::onEvent(EventType event)
     }
 }
 
+side PlayerSystem::getPlayerSide() const
+{
+    return m_playerSide;
+}
+
 void PlayerSystem::onGameStart()
 {
     m_playerAlive->setActive(true);

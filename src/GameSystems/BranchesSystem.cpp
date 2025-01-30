@@ -47,6 +47,11 @@ void BranchesSystem::onEvent(EventType event)
     }
 }
 
+side BranchesSystem::getLastBranchSide() const
+{
+    return m_branchPositions[k_branchesCount - 1];
+}
+
 void BranchesSystem::onGameStart()
 {
     clearBranchesPositions();

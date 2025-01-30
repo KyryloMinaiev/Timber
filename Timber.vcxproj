@@ -29,6 +29,7 @@
     <ClCompile Include="src\GameSystems\CloudsSystem.cpp" />
     <ClCompile Include="src\GameSystems\GameTimeSystem.cpp" />
     <ClCompile Include="src\GameSystems\LogSystem.cpp" />
+    <ClCompile Include="src\GameSystems\PlayerCollisionSystem.cpp" />
     <ClCompile Include="src\GameSystems\PlayerSystem.cpp" />
     <ClCompile Include="src\InputSystem.cpp" />
     <ClCompile Include="src\Screen.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="src\GameSystems\GameSystem.h" />
     <ClInclude Include="src\GameSystems\GameTimeSystem.h" />
     <ClInclude Include="src\GameSystems\LogSystem.h" />
+    <ClInclude Include="src\GameSystems\PlayerCollisionSystem.h" />
     <ClInclude Include="src\GameSystems\PlayerSystem.h" />
     <ClInclude Include="src\GameSystems\Sides.h" />
     <ClInclude Include="src\InputSystem.h" />

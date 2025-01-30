@@ -14,6 +14,7 @@ public:
     ~PlayerSystem() override;
     void update(sf::Time& dt) override;
     void onEvent(EventType event) override;
+    side getPlayerSide() const;
 private:
     void onGameStart();
     void onPlayerCollision() const;

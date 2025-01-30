@@ -14,6 +14,7 @@ public:
     ~BranchesSystem() override;
     void update(sf::Time& dt) override;
     void onEvent(EventType event) override;
+    side getLastBranchSide() const;
 private:
     void onGameStart();
     void onGameEnd() const;
