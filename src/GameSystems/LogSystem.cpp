@@ -3,7 +3,7 @@
 #include "../EntitySystem.h"
 #include "../Screen.h"
 
-LogSystem::LogSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager)
+LogSystem::LogSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager), m_logMoving(false)
 {
     m_log = entitySystem->createEntity("res/graphics/log.png", sf::Vector2f(), 10);
     m_log->setActive(false);
@@ -23,7 +23,7 @@ LogSystem::~LogSystem()
 
 void LogSystem::update(sf::Time& dt)
 {
-    if(!m_log->isActive())
+    if(!m_logMoving)
     {
         return;
     }
@@ -35,16 +35,22 @@ void LogSystem::update(sf::Time& dt)
                      m_log->getPosition().y +
                      (k_logSpeedY * dt.asSeconds())));
 
-        auto screenWidth =  Screen::getWindowSize().y;
+        auto screenWidth =  Screen::getWindowSize().x;
         if (m_log->getPosition().x < -100 ||
             m_log->getPosition().x > screenWidth)
         {
-            m_log->setActive(false);
+            m_logMoving = false;
+            m_log->setPosition(m_startLogPosition);
         }
 }
 
 void LogSystem::onEvent(EventType event)
 {
+    if(event == EventType::GameStarted)
+    {
+        m_log->setActive(true);
+    }
+    
     if(event == EventType::PlayerMoved)
     {
         onPlayerMoved();
@@ -56,8 +62,8 @@ void LogSystem::onEvent(EventType event)
     }
 }
 
-void LogSystem::onPlayerMoved() const
+void LogSystem::onPlayerMoved()
 {
-    m_log->setActive(true);
+    m_logMoving = true;
     m_log->setPosition(m_startLogPosition);
 }
