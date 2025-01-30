@@ -1,18 +1,19 @@
 ﻿#pragma once
-#include <SFML/System/Time.hpp>
+
+
+#include "../IUpdatable.h"
 
 class EntitySystem;
 class EventManager;
 
-class GameSystem
+class GameSystem : public IUpdatable
 {
 public:
     GameSystem(EntitySystem* entitySystem, EventManager* eventManager) : p_entitySystem(entitySystem), p_eventManager(eventManager)
     {
     }
 
-    virtual ~GameSystem() = default;
-    virtual void update(sf::Time& dt) = 0;
+    ~GameSystem() override = default;
 
 protected:
     EntitySystem* p_entitySystem;
