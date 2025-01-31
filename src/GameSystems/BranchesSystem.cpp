@@ -4,7 +4,7 @@
 #include "../GameEntity.h"
 #include "../Screen.h"
 
-BranchesSystem::BranchesSystem(EntitySystem* entitySystem, EventManager* eventManager) : GameSystem(entitySystem, eventManager), m_seedCounter(0)
+BranchesSystem::BranchesSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager) : GameSystem(world, entitySystem, eventManager), m_seedCounter(0)
 {
     auto screenScale = Screen::getScaleFactor();
     
@@ -25,7 +25,7 @@ BranchesSystem::~BranchesSystem()
     p_eventManager->removeEventListener(this);
 };
 
-void BranchesSystem::update(sf::Time& dt)
+void BranchesSystem::onUpdate(sf::Time& dt)
 {
 }
 

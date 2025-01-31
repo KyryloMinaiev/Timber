@@ -6,13 +6,14 @@ class GameEntity;
 class BeeSystem : public GameSystem
 {
 public:
-    BeeSystem(EntitySystem* entitySystem, EventManager* eventManager);
+    BeeSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager);
     ~BeeSystem() override;
 
-    void update(sf::Time& dt) override;
+protected:
+    void onUpdate(sf::Time& dt) override;
 
 private:
     GameEntity* m_bee;
-    bool m_beeOusideScreen;
+    bool m_beeOutsideScreen;
     float m_beeSpeed;
 };

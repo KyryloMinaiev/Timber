@@ -3,7 +3,7 @@
 #include "../EntitySystem.h"
 #include "../Screen.h"
 
-CloudsSystem::CloudsSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager)
+CloudsSystem::CloudsSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager): GameSystem(world, entitySystem, eventManager)
 {
     for (int i = 0; i < k_cloudsCount; ++i)
     {
@@ -14,7 +14,7 @@ CloudsSystem::CloudsSystem(EntitySystem* entitySystem, EventManager* eventManage
 
 CloudsSystem::~CloudsSystem() = default;
 
-void CloudsSystem::update(sf::Time& dt)
+void CloudsSystem::onUpdate(sf::Time& dt)
 {
     for (int i = 0; i < k_cloudsCount; ++i)
     {

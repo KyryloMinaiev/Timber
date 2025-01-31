@@ -8,9 +8,10 @@ class GameEntity;
 class BackgroundSystem : public GameSystem
 {
 public:
-    BackgroundSystem(EntitySystem* entitySystem, EventManager* eventManager);
+    BackgroundSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager);
     ~BackgroundSystem() override;
-    void update(sf::Time& dt) override;
+protected:
+    void onUpdate(sf::Time& dt) override;
 private:
     static constexpr float k_defaultTreePosition = 810;
     

@@ -10,11 +10,13 @@ class GameEntity;
 class PlayerSystem : public GameSystem, public IEventListener
 {
 public:
-    PlayerSystem(EntitySystem* entitySystem, EventManager* eventManager);
+    PlayerSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager);
     ~PlayerSystem() override;
-    void update(sf::Time& dt) override;
     void onEvent(EventType event) override;
     side getPlayerSide() const;
+
+protected:
+    void onUpdate(sf::Time& dt) override;
 private:
     void onGameStart();
     void onPlayerCollision() const;

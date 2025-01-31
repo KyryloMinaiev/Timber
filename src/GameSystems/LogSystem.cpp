@@ -3,7 +3,7 @@
 #include "../EntitySystem.h"
 #include "../Screen.h"
 
-LogSystem::LogSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager), m_logMoving(false)
+LogSystem::LogSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager): GameSystem(world, entitySystem, eventManager), m_logMoving(false)
 {
     m_log = entitySystem->createEntity("res/graphics/log.png", sf::Vector2f(), 10);
     m_log->setActive(false);
@@ -21,7 +21,7 @@ LogSystem::~LogSystem()
     p_eventManager->removeEventListener(this);
 }
 
-void LogSystem::update(sf::Time& dt)
+void LogSystem::onUpdate(sf::Time& dt)
 {
     if(!m_logMoving)
     {

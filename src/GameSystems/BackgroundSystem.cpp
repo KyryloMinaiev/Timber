@@ -4,7 +4,7 @@
 #include "../EntitySystem.h"
 #include "../Screen.h"
 
-BackgroundSystem::BackgroundSystem(EntitySystem* entitySystem, EventManager* eventManager): GameSystem(entitySystem, eventManager)
+BackgroundSystem::BackgroundSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager): GameSystem(world, entitySystem, eventManager)
 {
     auto screenSize = Screen::getWindowSize();
     createBackground(screenSize);
@@ -13,7 +13,7 @@ BackgroundSystem::BackgroundSystem(EntitySystem* entitySystem, EventManager* eve
 
 BackgroundSystem::~BackgroundSystem() = default;
 
-void BackgroundSystem::update(sf::Time& dt)
+void BackgroundSystem::onUpdate(sf::Time& dt)
 {
 }
 

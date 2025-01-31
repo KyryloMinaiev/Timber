@@ -9,10 +9,11 @@ class GameEntity;
 class LogSystem : public GameSystem, IEventListener
 {
 public:
-    LogSystem(EntitySystem* entitySystem, EventManager* eventManager);
+    LogSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager);
     ~LogSystem() override;
-    void update(sf::Time& dt) override;
     void onEvent(EventType event) override;
+protected:
+    void onUpdate(sf::Time& dt) override;
 private:
     static constexpr float k_logSpeedX = 5000;
     static constexpr float k_logSpeedY = -1500;

@@ -10,11 +10,13 @@ class GameEntity;
 class BranchesSystem : public GameSystem, public IEventListener
 {
 public:
-    BranchesSystem(EntitySystem* entitySystem, EventManager* eventManager);
+    BranchesSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager);
     ~BranchesSystem() override;
-    void update(sf::Time& dt) override;
     void onEvent(EventType event) override;
     side getLastBranchSide() const;
+
+protected:
+    void onUpdate(sf::Time& dt) override;
 private:
     void onGameStart();
     void onGameEnd() const;

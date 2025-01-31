@@ -4,7 +4,7 @@
 #include "../InputSystem.h"
 #include "../Screen.h"
 
-PlayerSystem::PlayerSystem(EntitySystem* entitySystem, EventManager* eventManager) : GameSystem(entitySystem, eventManager), m_playerSide(side::NONE)
+PlayerSystem::PlayerSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager) : GameSystem(world, entitySystem, eventManager), m_playerSide(side::NONE)
 {
     m_playerAlive = entitySystem->createEntity("res/graphics/player.png", getPlayerPosition(m_playerSide), 10);
     m_playerAlive->setActive(false);
@@ -25,7 +25,7 @@ PlayerSystem::~PlayerSystem()
     p_eventManager->removeEventListener(this);
 };
 
-void PlayerSystem::update(sf::Time& dt)
+void PlayerSystem::onUpdate(sf::Time& dt)
 {
     if(InputSystem::isKeyDown(sf::Keyboard::Key::Left))
     {

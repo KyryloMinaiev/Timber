@@ -2,21 +2,15 @@
 
 #include <SFML\Graphics.hpp>
 
-#include "GameSystems/BackgroundSystem.h"
 #include "EntitySystem.h"
 #include "Screen.h"
 
-#include "GameSystems/BeeSystem.h"
-#include "GameSystems/CloudsSystem.h"
 #include "EventManager.h"
 #include "InputSystem.h"
 #include "SoundController.h"
 #include "UIController.h"
-#include "GameSystems/BranchesSystem.h"
-#include "GameSystems/GameTimeSystem.h"
-#include "GameSystems/LogSystem.h"
-#include "GameSystems/PlayerCollisionSystem.h"
-#include "GameSystems/PlayerSystem.h"
+#include "GameSystems/DefaultWorld.h"
+#include "GameSystems/GameplayWorld.h"
 
 using namespace sf;
 
@@ -28,20 +22,8 @@ Game::Game(RenderWindow* window): m_window(window), m_gameStarted(false)
     m_inputSystem = std::make_unique<InputSystem>(window);
     m_uiController = std::make_unique<UIController>(window, m_eventManager.get());
     m_soundController = std::make_unique<SoundController>(m_eventManager.get());
-    m_alwaysEnabledSystems.push_back(std::make_unique<BackgroundSystem>(m_entitySystem.get(), m_eventManager.get()));
-    m_alwaysEnabledSystems.push_back(std::make_unique<CloudsSystem>(m_entitySystem.get(), m_eventManager.get()));
-    m_alwaysEnabledSystems.push_back(std::make_unique<BeeSystem>(m_entitySystem.get(), m_eventManager.get()));
-    std::unique_ptr<PlayerSystem> playerSystem = std::make_unique<PlayerSystem>(
-        m_entitySystem.get(), m_eventManager.get());
-    std::unique_ptr<BranchesSystem> branchesSystem = std::make_unique<BranchesSystem>(
-        m_entitySystem.get(), m_eventManager.get());
-    m_gameplaySystems.push_back(std::make_unique<GameTimeSystem>(m_entitySystem.get(), m_eventManager.get()));
-    m_gameplaySystems.push_back(std::make_unique<LogSystem>(m_entitySystem.get(), m_eventManager.get()));
-    m_gameplaySystems.push_back(
-        std::make_unique<PlayerCollisionSystem>(playerSystem.get(), branchesSystem.get(), m_entitySystem.get(),
-                                                m_eventManager.get()));
-    m_gameplaySystems.push_back(std::move(playerSystem));
-    m_gameplaySystems.push_back(std::move(branchesSystem));
+    m_defaultWorld = std::make_unique<DefaultWorld>(m_entitySystem.get(), m_eventManager.get());
+    m_gameplayWorld = std::make_unique<GameplayWorld>(m_entitySystem.get(), m_eventManager.get());
 
     m_eventManager->addEventListener(this);
 }
@@ -78,17 +60,11 @@ void Game::Run()
         }
 
         Time dt = clock.restart();
-        for (auto& gameSystem : m_alwaysEnabledSystems)
-        {
-            gameSystem->update(dt);
-        }
+        m_defaultWorld->update(dt);
 
         if (m_gameStarted)
         {
-            for (auto& gameSystem : m_gameplaySystems)
-            {
-                gameSystem->update(dt);
-            }
+            m_gameplayWorld->update(dt);
         }
 
         m_window->clear();

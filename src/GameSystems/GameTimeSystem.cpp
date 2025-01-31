@@ -2,8 +2,8 @@
 
 #include "../UIController.h"
 
-GameTimeSystem::GameTimeSystem(EntitySystem* entitySystem, EventManager* eventManager) :
-    GameSystem(entitySystem, eventManager), m_currentTime(0), m_currentScore(0)
+GameTimeSystem::GameTimeSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager) :
+    GameSystem(world, entitySystem, eventManager), m_currentTime(0), m_currentScore(0)
 {
     eventManager->addEventListener(this);
 }
@@ -13,7 +13,7 @@ GameTimeSystem::~GameTimeSystem()
     p_eventManager->removeEventListener(this);
 }
 
-void GameTimeSystem::update(sf::Time& dt)
+void GameTimeSystem::onUpdate(sf::Time& dt)
 {
     m_currentTime -= dt.asSeconds();
     checkGameTime();

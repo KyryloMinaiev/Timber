@@ -8,12 +8,14 @@ class BranchesSystem;
 class PlayerCollisionSystem : public GameSystem, public IEventListener
 {
 public:
-    PlayerCollisionSystem(PlayerSystem* playerSystem, BranchesSystem* branchesSystem, EntitySystem* entitySystem, EventManager* eventManager);
+    PlayerCollisionSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager);
 
     ~PlayerCollisionSystem() override;
-    void update(sf::Time& dt) override;
     void onEvent(EventType event) override;
-
+    
+protected:
+    void onUpdate(sf::Time& dt) override;
+    void onStartRunning() override;
 private:
     void checkCollision() const;
     

@@ -7,10 +7,11 @@ class GameEntity;
 class CloudsSystem : public GameSystem
 {
 public:
-    CloudsSystem(EntitySystem* entitySystem, EventManager* eventManager);
+    CloudsSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager);
     ~CloudsSystem() override;
     
-    void update(sf::Time& dt) override;
+protected:
+    void onUpdate(sf::Time& dt) override;
 private:
     struct CloudData
     {

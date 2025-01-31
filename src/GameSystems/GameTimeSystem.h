@@ -6,10 +6,11 @@
 class GameTimeSystem : public GameSystem, public IEventListener
 {
 public:
-    GameTimeSystem(EntitySystem* entitySystem, EventManager* eventManager);
+    GameTimeSystem(World* world, EntitySystem* entitySystem, EventManager* eventManager);
     ~GameTimeSystem() override;
-    void update(sf::Time& dt) override;
     void onEvent(EventType event) override;
+protected:
+    void onUpdate(sf::Time& dt) override;
 private:
     void onGameStart();
     void onPlayerMoved();

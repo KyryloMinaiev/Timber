@@ -17,6 +17,8 @@ class EventManager;
 class InputSystem;
 class UIController;
 class SoundController;
+class DefaultWorld;
+class GameplayWorld;
 
 class Game : public IEventListener
 {
@@ -32,8 +34,9 @@ private:
     std::unique_ptr<InputSystem> m_inputSystem;
     std::unique_ptr<UIController> m_uiController;
     std::unique_ptr<SoundController> m_soundController;
-    std::vector<std::unique_ptr<GameSystem>> m_alwaysEnabledSystems;
-    std::vector<std::unique_ptr<GameSystem>> m_gameplaySystems;
+    std::unique_ptr<DefaultWorld> m_defaultWorld;
+    std::unique_ptr<GameplayWorld> m_gameplayWorld;
+    
     sf::RenderWindow* m_window;
     std::unique_ptr<Screen> m_screen;
 
